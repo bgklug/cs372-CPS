@@ -1,0 +1,28 @@
+Class structure
+
+Shape
+ |- Circle
+ |- Rectangle
+ |- Polygon
+ |- Triangle
+ |- Square
+ |- CompoundShape
+     |- ScaleShape
+     |- RotateShape
+     |- LayeredShape
+     |- VerticalShape
+     |- HorizontalShape
+
+
+Class Description
+
+Shape
++get_height
++get_width
++generate (Returns a stringstream)
+
+CompoundShape
++get_height
++get_width
++generate (Returns a stringstream)
+_shape_list<Shape>
