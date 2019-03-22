@@ -29,3 +29,11 @@ TEST_CASE("Circle")
     }
 }
 
+TEST_CASE("Polygon")
+{
+    SECTION("Triangle")
+    {
+        Polygon t(3,100);
+        REQUIRE(t.get_width() == 100);
+    }
+}
