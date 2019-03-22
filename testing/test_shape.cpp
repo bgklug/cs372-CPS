@@ -14,8 +14,8 @@ TEST_CASE("Circle")
 
     SECTION("Getters")
     {
-        REQUIRE(c1.getHeight() == 0);
-        REQUIRE(c1.getWidth() == 0);
+        REQUIRE(c1.get_height() == 0);
+        REQUIRE(c1.get_width() == 0);
     }
 
     SECTION("Setters")

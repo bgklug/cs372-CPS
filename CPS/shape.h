@@ -5,6 +5,7 @@
 #ifndef CS372_CPS_SHAPE_H
 #define CS372_CPS_SHAPE_H
 
+#include <sstream>
 
 class Shape
 {
@@ -13,9 +14,9 @@ public:
 
 //    ~Shape(){}
 
-    const int getHeight();
-    const int getWidth();
-    virtual void generate()=0;
+    const int get_height();
+    const int get_width();
+    virtual std::stringstream generate()=0;
 
 private:
     int _height { 0 };
@@ -27,7 +28,7 @@ class Circle : public Shape
 public:
     Circle() = default;
 
-    void generate(){};
+    std::stringstream generate(){};
 private:
 };
 
