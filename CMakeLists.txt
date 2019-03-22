@@ -4,5 +4,5 @@ project(cs372-CPS)
 set(CMAKE_CXX_STANDARD 17)
 
 
-include_directories("../include")
+include_directories("../CPS")
 add_executable(test_cps ./testing/main_test.cpp ./testing/test_shape.cpp ./CPS/compoundshape.cpp ./CPS/compoundshape.h ./CPS/shape.cpp ./CPS/shape.h)
