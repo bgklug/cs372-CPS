@@ -10,18 +10,19 @@
 class Shape
 {
 public:
-//    Shape(){}
-
-//    ~Shape(){}
 
     const int get_height();
     const int get_width();
+    void set_height(int height);
+    void set_width(int width);
+
     virtual std::stringstream generate()=0;
 
 private:
     int _height { 0 };
     int _width { 0 };
 };
+
 
 class Circle : public Shape
 {
@@ -31,5 +32,18 @@ public:
     std::stringstream generate(){};
 private:
 };
+
+
+class Polygon : public Shape
+{
+public:
+    Polygon(int numSides, int sideLength);
+
+    std::stringstream generate();
+
+private:
+
+};
+
 
 #endif //CS372_CPS_SHAPE_H
