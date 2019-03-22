@@ -10,11 +10,23 @@ TEST_CASE("Test test"){
 
 TEST_CASE("Circle")
 {
-    SECTION("Constructor")
+    Circle c1;
+    Circle c2(1.0);
+    Circle c3(10.0);
+    Circle c4(1000.0);
+
+    SECTION("Getters")
     {
-        Circle c1;
-        Circle c2(1.0);
-        Circle c3(10.0);
-        Circle c4(1000.0);
+
+    }
+
+    SECTION("Setters")
+    {
+
+    }
+
+    SECTION("Code Generation")
+    {
+
     }
 }
