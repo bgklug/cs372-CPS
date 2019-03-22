@@ -8,14 +8,26 @@
 
 class Shape
 {
+public:
+//    Shape(){}
 
+//    ~Shape(){}
+
+    const int getHeight();
+    const int getWidth();
+    virtual void generate()=0;
+
+private:
+    int _height { 0 };
+    int _width { 0 };
 };
 
 class Circle : public Shape
 {
 public:
     Circle() = default;
-    explicit Circle(double);
+
+    void generate(){};
 private:
 };
 

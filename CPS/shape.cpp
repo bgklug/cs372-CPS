@@ -5,8 +5,12 @@
 #include "shape.h"
 
 
-
-Circle::Circle(double)
+const int Shape::getHeight()
 {
+    return _height;
+}
 
+const int Shape::getWidth()
+{
+    return _width;
 }
