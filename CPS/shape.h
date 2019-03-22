@@ -1,5 +1,5 @@
 //
-// Created by Mark on 3/20/2019.
+// Created by Mark, Bryant and Jacob on 3/20/2019.
 //
 
 #ifndef CS372_CPS_SHAPE_H
