@@ -3,3 +3,10 @@
 //
 
 #include "shape.h"
+
+
+
+Circle::Circle(double)
+{
+
+}

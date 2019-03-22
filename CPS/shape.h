@@ -6,10 +6,17 @@
 #define CS372_CPS_SHAPE_H
 
 
-class shape
+class Shape
 {
 
 };
 
+class Circle : public Shape
+{
+public:
+    Circle() = default;
+    explicit Circle(double);
+private:
+};
 
 #endif //CS372_CPS_SHAPE_H

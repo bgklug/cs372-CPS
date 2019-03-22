@@ -7,3 +7,14 @@
 TEST_CASE("Test test"){
     REQUIRE(1 == 1);
 }
+
+TEST_CASE("Circle")
+{
+    SECTION("Constructor")
+    {
+        Circle c1;
+        Circle c2(1.0);
+        Circle c3(10.0);
+        Circle c4(1000.0);
+    }
+}
