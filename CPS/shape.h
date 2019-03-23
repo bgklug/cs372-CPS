@@ -10,7 +10,6 @@
 class Shape
 {
 public:
-
     const int get_height();
     const int get_width();
     void set_height(int height);

@@ -25,7 +25,6 @@ void Shape::set_width(int width)
     _width = width;
 }
 
-
 Polygon::Polygon(int numSides, int sideLength)
 {
     const double pi =  std::acos(-1);
