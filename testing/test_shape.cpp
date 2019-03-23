@@ -8,9 +8,6 @@
 TEST_CASE("Circle")
 {
     Circle c1;
-//    Circle c2(1.0);
-//    Circle c3(10.0);
-//    Circle c4(1000.0);
 
     SECTION("Getters")
     {
@@ -18,9 +15,11 @@ TEST_CASE("Circle")
         REQUIRE(c1.get_width() == 0);
     }
 
-    SECTION("Setters")
+    SECTION("Single-Parameter Constructor")
     {
-
+        Circle c2(1);
+        REQUIRE(c2.get_height() == 1);
+        REQUIRE(c2.get_width() == 1);
     }
 
     SECTION("Code Generation")

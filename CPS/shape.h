@@ -10,8 +10,8 @@
 class Shape
 {
 public:
-    const int get_height();
-    const int get_width();
+     int get_height() const;
+     int get_width() const;
     void set_height(int height);
     void set_width(int width);
 
@@ -26,9 +26,11 @@ class Circle : public Shape
 {
 public:
     Circle() = default;
+    explicit Circle(int);
 
-    std::stringstream generate(){};
+    std::stringstream generate() override {};
 private:
+    void setRadius(int);
 };
 
 #endif //CS372_CPS_SHAPE_H
