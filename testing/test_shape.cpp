@@ -19,20 +19,24 @@ TEST_CASE("Circle")
     Circle c4(10.9);
     SECTION("Single-Parameter Constructor")
     {
-        REQUIRE(c2.get_height() == 1);
-        REQUIRE(c2.get_width() == 1);
+        REQUIRE(c2.get_height() == 2);
+        REQUIRE(c2.get_width() == 2);
 
-        REQUIRE(c3.get_height() == 10000);
-        REQUIRE(c3.get_width() == 10000);
+        REQUIRE(c3.get_height() == 20000);
+        REQUIRE(c3.get_width() == 20000);
 
-        REQUIRE(c4.get_height() == 10);
-        REQUIRE(c4.get_width() == 10);
+        REQUIRE(c4.get_height() == 20);
+        REQUIRE(c4.get_width() == 20);
     }
 
     SECTION("Code Generation")
     {
-        std::string testcircle = "0 0 1 0 360 arc stroke";
-        REQUIRE(c2.generate().str() == testcircle);
+        std::string testCircle1 = "0 0 1 0 360 arc stroke";
+        std::string testCircle2 = "0 0 10000 0 360 arc stroke";
+        std::string testCircle3 = "0 0 10 0 360 arc stroke";
+        REQUIRE(c2.generate().str() == testCircle1);
+        REQUIRE(c3.generate().str() == testCircle2);
+        REQUIRE(c4.generate().str() == testCircle3);
     }
 }
 

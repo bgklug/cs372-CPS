@@ -26,8 +26,8 @@ void Shape::set_width(int width)
 
 void Circle::setRadius(int radius)
 {
-    set_height(radius);
-    set_width(radius);
+    set_height(radius*2);
+    set_width(radius*2);
 }
 
 Circle::Circle(int radius)
@@ -37,6 +37,6 @@ Circle::Circle(int radius)
 
 std::stringstream Circle::generate()
 {
-    return std::stringstream("0 0 " + std::to_string(get_height()) + " 0 360 arc stroke");
+    return std::stringstream("0 0 " + std::to_string(get_height()/2) + " 0 360 arc stroke");
 }
 
