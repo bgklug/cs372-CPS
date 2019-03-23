@@ -5,7 +5,6 @@
 #include "compoundshape.h"
 
 using std::vector;
-using std::for_each;
 using std::stringstream;
 using std::move;
 
@@ -63,7 +62,7 @@ int LayeredShapes::get_width() const
 	return maxWidth;
 }
 
-stringstream LayeredShapes::generate() const
+stringstream LayeredShapes::generate()
 {
 	stringstream postScriptFragment;
 

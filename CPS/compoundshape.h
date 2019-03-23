@@ -39,7 +39,7 @@ public:
 	int get_height() const override;
 	int get_width() const override;
 
-	std::stringstream generate() const;
+	std::stringstream generate();
 private:
 
 };
