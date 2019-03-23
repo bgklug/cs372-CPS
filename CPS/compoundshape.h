@@ -5,7 +5,7 @@
 #ifndef CS372_CPS_COUMPOUNDSHAPE_H
 #define CS372_CPS_COUMPOUNDSHAPE_H
 
-#include <algorithm>
+#include <memory>
 #include <sstream>
 #include <vector>
 
@@ -13,9 +13,9 @@
 
 class CompoundShape: public Shape {
 public:
-	using Shape_ptr = Shape*;
+	using Shape_ptr = std::unique_ptr<Shape>;
 
-	CompoundShape(const std::vector<Shape_ptr> &shapes);
+	CompoundShape(std::vector<Shape_ptr> shapes);
 	virtual ~CompoundShape()=default;
 
 	int get_height() const=0;
@@ -34,7 +34,7 @@ private:
 
 class LayeredShapes: public CompoundShape {
 public:
-	LayeredShapes(const std::vector<Shape_ptr> &shapes);
+	LayeredShapes(std::vector<Shape_ptr> shapes);
 
 	int get_height() const override;
 	int get_width() const override;

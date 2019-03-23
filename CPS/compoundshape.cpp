@@ -7,9 +7,10 @@
 using std::vector;
 using std::for_each;
 using std::stringstream;
+using std::move;
 
-CompoundShape::CompoundShape(const vector<Shape_ptr> &shapes)
-	: _shapes{shapes}
+CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
+	: _shapes(move(shapes))
 {}
 
 size_t CompoundShape::CompoundShape::get_numShapes() const
@@ -34,35 +35,31 @@ auto CompoundShape::end() const
 	return _shapes.end();
 }
 
-LayeredShapes::LayeredShapes(const vector<Shape_ptr> &shapes)
-	: CompoundShape(shapes)
+LayeredShapes::LayeredShapes(vector<Shape_ptr> shapes)
+	: CompoundShape(move(shapes))
 {}
 
 int LayeredShapes::get_height() const
 {
 	auto maxHeight{0};
-	for_each(begin(), end(),
-		[&maxHeight](Shape_ptr shape)
-		{
-			if (shape->get_height() > maxHeight) {
-				maxHeight = shape->get_height();
-			}
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		if ((*shape)->get_height() > maxHeight) {
+			maxHeight = (*shape)->get_height();
 		}
-	);
+	}
 	return maxHeight;
 }
 
 int LayeredShapes::get_width() const
 {
 	auto maxWidth{0};
-	for_each(begin(), end(),
-		[&maxWidth](Shape_ptr shape)
-		{
-			if (shape->get_width() > maxWidth) {
-				maxWidth = shape->get_width();
-			}
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		if ((*shape)->get_width() > maxWidth) {
+			maxWidth = (*shape)->get_width();
 		}
-	);
+	};
 	return maxWidth;
 }
 
@@ -72,4 +69,3 @@ stringstream LayeredShapes::generate() const
 
 	return postScriptFragment;
 }
-
