@@ -5,12 +5,12 @@
 #include "shape.h"
 
 
-const int Shape::get_height()
+int Shape::get_height() const
 {
     return _height;
 }
 
-const int Shape::get_width()
+int Shape::get_width() const
 {
     return _width;
 }
