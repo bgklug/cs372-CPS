@@ -39,7 +39,7 @@ class Polygon : public Shape
 public:
     Polygon(int numSides, int sideLength);
 
-    std::stringstream generate();
+    std::stringstream generate(){};
 
 private:
 
