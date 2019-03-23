@@ -28,7 +28,7 @@ public:
     Circle() = default;
     explicit Circle(int);
 
-    std::stringstream generate() override {};
+    std::stringstream generate() override;
 private:
     void setRadius(int);
 };

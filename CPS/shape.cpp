@@ -35,3 +35,8 @@ Circle::Circle(int radius)
     setRadius(radius);
 }
 
+std::stringstream Circle::generate()
+{
+    return std::stringstream("0 0 " + std::to_string(get_height()) + " 0 360 arc stroke");
+}
+
