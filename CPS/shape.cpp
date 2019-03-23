@@ -4,7 +4,7 @@
 
 #include "shape.h"
 
-int Shape::get_height() const 
+int Shape::get_height() const
 {
     return _height;
 }
