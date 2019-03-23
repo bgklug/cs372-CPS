@@ -10,8 +10,8 @@
 class Shape
 {
 public:
-    int get_height() const;
-    int get_width() const;
+    virtual int get_height() const;
+    virtual int get_width() const;
     void set_height(int height);
     void set_width(int width);
 
