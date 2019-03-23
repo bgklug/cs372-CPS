@@ -6,27 +6,40 @@
 #define CS372_CPS_COUMPOUNDSHAPE_H
 
 #include <algorithm>
-using std::for_each;
-#include <vector>;
-using std::vector;
+#include <sstream>
+#include <vector>
+
 #include "shape.h"
 
 class CompoundShape: public Shape {
 public:
-	CompoundShape(const vector<Shape*> &shapes);
+	using Shape_ptr = Shape*;
+
+	CompoundShape(const std::vector<Shape_ptr> &shapes);
 	virtual ~CompoundShape()=default;
 
-	int get_width() const override;
-	int get_height() const override;
-	void set_width(int width);
-	void set_height(int width);
+	int get_height() const=0;
+	int get_width() const=0;
+	void set_height(int height)=delete;
+	void set_width(int width)=delete;
+
+	size_t get_numShapes() const;
+	auto begin();
+	auto end();
+	auto begin() const;
+	auto end() const;
 private:
-	vector<Shape*> _shapes;
+	std::vector<Shape_ptr> _shapes;
 };
 
-class VirticalShapes: public CompoundShape {
+class LayeredShapes: public CompoundShape {
 public:
+	LayeredShapes(const std::vector<Shape_ptr> &shapes);
 
+	int get_height() const override;
+	int get_width() const override;
+
+	std::stringstream generate() const;
 private:
 
 };
