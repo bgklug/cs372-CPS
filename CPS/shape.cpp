@@ -14,3 +14,14 @@ const int Shape::get_width()
 {
     return _width;
 }
+
+void Shape::set_height(int height)
+{
+    _height = height;
+}
+
+void Shape::set_width(int width)
+{
+    _width = width;
+}
+
