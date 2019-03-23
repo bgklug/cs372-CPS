@@ -10,12 +10,11 @@
 class Shape
 {
 public:
-//    Shape(){}
+    int get_height() const;
+    int get_width() const;
+    void set_height(int height);
+    void set_width(int width);
 
-//    ~Shape(){}
-
-    const int get_height();
-    const int get_width();
     virtual std::stringstream generate()=0;
 
 private:
