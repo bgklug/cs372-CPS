@@ -34,7 +34,7 @@ private:
 
 class LayeredShapes: public CompoundShape {
 public:
-	LayeredShapes(std::vector<Shape_ptr> shapes);
+	LayeredShapes(std::vector<Shape_ptr> shapes = std::vector<Shape_ptr>());
 
 	int get_height() const override;
 	int get_width() const override;
