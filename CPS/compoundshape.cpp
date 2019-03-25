@@ -68,7 +68,7 @@ stringstream LayeredShapes::generate()
 
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
-		postScriptFragment >> (*shape)->generate();
+		postScriptFragment << (*shape)->generate().str() << "\n";
 	}
 
 	return postScriptFragment;
