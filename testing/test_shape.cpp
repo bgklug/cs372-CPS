@@ -45,19 +45,46 @@ TEST_CASE("Circle")
 
 TEST_CASE("Layered Shape")
 {
-	auto v1 = std::vector<std::unique_ptr<Shape>>();
-	v1.push_back(std::make_unique<Circle>());
-	
-	auto layered1 = std::make_unique<LayeredShapes>(
-		std::move(v1)
-	);
-	SECTION("width")
+    std::vector<CompoundShape::Shape_ptr> v1;
+    std::vector<CompoundShape::Shape_ptr> v2;
+    v2.push_back(std::make_unique<Circle>());
+    std::vector<CompoundShape::Shape_ptr> v3;
+    v3.push_back(std::make_unique<Circle>(10));
+    std::vector<CompoundShape::Shape_ptr> v4;
+    v4.push_back(std::make_unique<Circle>(10));
+    v4.push_back(std::make_unique<Circle>(15));
+
+    auto layered1 = std::make_unique<LayeredShapes>(std::move(v1));
+    auto layered2 = std::make_unique<LayeredShapes>(std::move(v2));
+    auto layered3 = std::make_unique<LayeredShapes>(std::move(v3));
+    auto layered4 = std::make_unique<LayeredShapes>(std::move(v4));
+
+    int diameter1{0};
+    int diameter2{0};
+    int diameter3{20};
+    int diameter4{30};
+
+	SECTION("Width")
 	{
-		REQUIRE(layered1->get_width() == 0);
+		REQUIRE(layered1->get_width() == diameter1);
+        REQUIRE(layered2->get_width() == diameter2);
+        REQUIRE(layered3->get_width() == diameter3);
+        REQUIRE(layered4->get_width() == diameter4);
 	}
 
-	SECTION("height")
+	SECTION("Height")
 	{
-		REQUIRE(layered1->get_height() == 0);
+		REQUIRE(layered1->get_height() == diameter1);
+        REQUIRE(layered2->get_height() == diameter2);
+        REQUIRE(layered3->get_height() == diameter3);
+        REQUIRE(layered4->get_height() == diameter4);
 	}
+
+    SECTION("Code Generation")
+    {
+        REQUIRE(layered1->generate().str() == "");
+        REQUIRE(layered2->generate().str() == "0 0 0 0 360 arc stroke\n");
+        REQUIRE(layered3->generate().str() == "0 0 10 0 360 arc stroke\n");
+        REQUIRE(layered4->generate().str() == "0 0 10 0 360 arc stroke\n0 0 15 0 360 arc stroke\n");
+    }
 }
