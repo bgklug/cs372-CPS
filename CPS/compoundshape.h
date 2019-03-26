@@ -44,4 +44,16 @@ private:
 
 };
 
+class VerticalShapes: public CompoundShape {
+public:
+	VerticalShapes(std::vector<Shape_ptr> shapes);
+
+	int get_height() const override;
+	int get_width() const override;
+
+	std::stringstream generate();
+private:
+
+};
+
 #endif //CS372_CPS_COUMPOUNDSHAPE_H
