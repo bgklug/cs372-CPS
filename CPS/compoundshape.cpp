@@ -68,3 +68,36 @@ stringstream LayeredShapes::generate()
 
 	return postScriptFragment;
 }
+
+VerticalShapes::VerticalShapes(std::vector<Shape_ptr> shapes)
+	: CompoundShape(move(shapes))
+{}
+
+int VerticalShapes::get_height() const
+{
+	auto totalHeight{0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		totalHeight += (*shape)->get_height();
+	};
+	return totalHeight;
+}
+
+int VerticalShapes::get_width() const
+{
+	auto maxWidth{0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		if ((*shape)->get_width() > maxWidth) {
+			maxWidth = (*shape)->get_width();
+		}
+	};
+	return maxWidth;
+}
+
+std::stringstream VerticalShapes::generate()
+{
+	stringstream postScriptFragment;
+
+	return postScriptFragment;
+}
