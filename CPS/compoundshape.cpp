@@ -12,6 +12,10 @@ CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
 	: _shapes(move(shapes))
 {}
 
+void CompoundShape::pushShape(Shape_ptr shape)
+{
+	_shapes.push_back(move(shape));
+}
 auto CompoundShape::begin()
 {
 	return _shapes.begin();

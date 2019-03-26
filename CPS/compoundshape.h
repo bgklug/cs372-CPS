@@ -23,6 +23,8 @@ public:
 	void set_height(int height)=delete;
 	void set_width(int width)=delete;
 
+	void pushShape(Shape_ptr shape);
+
 	auto begin();
 	auto end();
 	auto begin() const;
