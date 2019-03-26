@@ -74,13 +74,16 @@ TEST_CASE("Vertical Shape")
 	SECTION("Width")
 	{
 		REQUIRE(vertical1->get_width() == 0);
+		REQUIRE(vertical2->get_width() == 6);
 	}
 	SECTION("Height")
 	{
 		REQUIRE(vertical1->get_height() == 0);
+		REQUIRE(vertical2->get_width() == 6);
 	}
 	SECTION("Generate PostScript")
 	{
 		REQUIRE(vertical1->generate().str() == "");
+		REQUIRE(vertical2->generate().str() == "0 0 3 0 360 arc stroke");
 	}
 }
