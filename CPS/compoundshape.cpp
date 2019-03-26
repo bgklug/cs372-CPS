@@ -76,11 +76,23 @@ HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
 
 int HorizontalShapes::get_height() const
 {
-	return 0;
+	auto maxHeight{0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		if ((*shape)->get_height() > maxHeight) {
+			maxHeight = (*shape)->get_height();
+		}
+	}
+	return maxHeight;
 }
 int HorizontalShapes::get_width() const
 {
-	return 0;
+	auto totalWidth{0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		totalWidth += (*shape)->get_height();
+	}
+	return totalWidth;
 }
 
 std::stringstream HorizontalShapes::generate()

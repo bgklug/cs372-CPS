@@ -65,6 +65,9 @@ TEST_CASE("Layered Shape")
 TEST_CASE("Horizontal Shape")
 {
 	auto horizontal1 = std::make_unique<HorizontalShapes>();
+	auto horizontal2 = std::make_unique<HorizontalShapes>();
+	auto horizontal3 = std::make_unique<HorizontalShapes>();
+
 	SECTION("Width")
 	{
 		REQUIRE(horizontal1->get_width() == 0);
