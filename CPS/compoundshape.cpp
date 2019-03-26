@@ -12,11 +12,6 @@ CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
 	: _shapes(move(shapes))
 {}
 
-size_t CompoundShape::CompoundShape::get_numShapes() const
-{
-	return _shapes.size();
-}
-
 auto CompoundShape::begin()
 {
 	return _shapes.begin();
