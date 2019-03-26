@@ -7,6 +7,10 @@
 #include "../CPS/shape.h"
 #include "../CPS/compoundshape.h"
 
+using std::vector;
+using std::move;
+using std::unique;
+
 TEST_CASE("Circle")
 {
     Circle c1;
