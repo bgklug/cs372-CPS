@@ -75,6 +75,6 @@ TEST_CASE("Horizontal Shape")
 	}
 	SECTION("PostScript Generation")
 	{
-		REQUIRE(horizontal1->generate() == "");
+		REQUIRE(horizontal1->generate().str() == "");
 	}
 }

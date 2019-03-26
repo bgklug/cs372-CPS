@@ -68,3 +68,24 @@ stringstream LayeredShapes::generate()
 
 	return postScriptFragment;
 }
+
+
+HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
+	: CompoundShape(move(shapes))
+{}
+
+int HorizontalShapes::get_height() const
+{
+	return 0;
+}
+int HorizontalShapes::get_width() const
+{
+	return 0;
+}
+
+std::stringstream HorizontalShapes::generate()
+{
+	stringstream postScriptFragment;
+
+	return postScriptFragment;
+}
