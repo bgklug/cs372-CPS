@@ -18,8 +18,8 @@ public:
 	CompoundShape(std::vector<Shape_ptr> shapes = {});
 	virtual ~CompoundShape()=default;
 
-	int get_height() const=0;
-	int get_width() const=0;
+	virtual int get_height() const=0;
+	virtual int get_width() const=0;
 	void set_height(int height)=delete;
 	void set_width(int width)=delete;
 
