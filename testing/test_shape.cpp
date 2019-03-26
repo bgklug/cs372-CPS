@@ -9,7 +9,7 @@
 
 using std::vector;
 using std::move;
-using std::unique;
+using std::make_unique;
 
 TEST_CASE("Circle")
 {
@@ -68,7 +68,9 @@ TEST_CASE("Layered Shape")
 
 TEST_CASE("Vertical Shape")
 {
-	auto vertical1 = make_unique<VerticalShape>();
+	auto vertical1 = make_unique<VerticalShapes>();
+	auto vertical2 = make_unique<VerticalShapes>();
+	vertical2->pushShape(move(make_unique<Circle>(3)));
 	SECTION("Width")
 	{
 		REQUIRE(vertical1->get_width() == 0);
@@ -79,6 +81,6 @@ TEST_CASE("Vertical Shape")
 	}
 	SECTION("Generate PostScript")
 	{
-		REQUIRE(vertical1->generate() == "");
+		REQUIRE(vertical1->generate().str() == "");
 	}
 }
