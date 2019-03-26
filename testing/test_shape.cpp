@@ -49,22 +49,19 @@ TEST_CASE("Circle")
 
 TEST_CASE("Layered Shape")
 {
-    std::vector<CompoundShape::Shape_ptr> v1;
-    std::vector<CompoundShape::Shape_ptr> v2;
-    v2.push_back(std::make_unique<Circle>());
-    std::vector<CompoundShape::Shape_ptr> v3;
-    v3.push_back(std::make_unique<Circle>(10));
-    std::vector<CompoundShape::Shape_ptr> v4;
-    v4.push_back(std::make_unique<Circle>(10));
-    v4.push_back(std::make_unique<Circle>(15));
+    vector<CompoundShape::Shape_ptr> v2;
+    v2.push_back(make_unique<Circle>(10));
 
-    auto layered1 = std::make_unique<LayeredShapes>(std::move(v1));
-    auto layered2 = std::make_unique<LayeredShapes>(std::move(v2));
-    auto layered3 = std::make_unique<LayeredShapes>(std::move(v3));
-    auto layered4 = std::make_unique<LayeredShapes>(std::move(v4));
+    auto layered1 = make_unique<LayeredShapes>();
+    auto layered2 = make_unique<LayeredShapes>(move(v2));
+    auto layered3 = make_unique<LayeredShapes>();
+	layered3->pushShape(make_unique<Circle>(10));
+    auto layered4 = make_unique<LayeredShapes>();
+	layered4->pushShape(make_unique<Circle>(10));
+	layered4->pushShape(make_unique<Circle>(15));
 
     int diameter1{0};
-    int diameter2{0};
+    int diameter2{20};
     int diameter3{20};
     int diameter4{30};
 
@@ -87,7 +84,7 @@ TEST_CASE("Layered Shape")
     SECTION("Code Generation")
     {
         REQUIRE(layered1->generate().str() == "");
-        REQUIRE(layered2->generate().str() == "0 0 0 0 360 arc stroke\n");
+        REQUIRE(layered2->generate().str() == "0 0 10 0 360 arc stroke\n");
         REQUIRE(layered3->generate().str() == "0 0 10 0 360 arc stroke\n");
         REQUIRE(layered4->generate().str() == "0 0 10 0 360 arc stroke\n0 0 15 0 360 arc stroke\n");
     }
