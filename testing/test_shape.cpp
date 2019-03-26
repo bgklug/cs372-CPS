@@ -61,3 +61,20 @@ TEST_CASE("Layered Shape")
 		REQUIRE(layered1->get_height() == 0);
 	}
 }
+
+TEST_CASE("Horizontal Shape")
+{
+	auto horizontal1 = std::make_unique<HorizontalShapes>();
+	SECTION("Width")
+	{
+		REQUIRE(horizontal1->get_width() == 0);
+	}
+	SECTION("Height")
+	{
+		REQUIRE(horizontal1->get_height() == 0);
+	}
+	SECTION("PostScript Generation")
+	{
+		REQUIRE(horizontal1->generate() == "");
+	}
+}
