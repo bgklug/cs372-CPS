@@ -104,8 +104,7 @@ std::stringstream VerticalShapes::generate()
 	{
 		postScriptFragment << (*shape)->generate().str() << "\n";
 		if (shape + 1 != end()) {
-			postScriptFragment << to_string((*shape)->get_width()) << " "
-				<< to_string((*shape)->get_height()) << " rmoveto\n";
+			postScriptFragment << "0 " << to_string((*shape)->get_height()) << " rmoveto\n";
 		}
 	}
 
