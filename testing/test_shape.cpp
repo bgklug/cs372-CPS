@@ -68,16 +68,17 @@ TEST_CASE("Layered Shape")
 
 TEST_CASE("Vertical Shape")
 {
+	auto vertical1 = make_unique<VerticalShape>();
 	SECTION("Width")
 	{
-
+		REQUIRE(vertical1->get_width() == 0);
 	}
 	SECTION("Height")
 	{
-
+		REQUIRE(vertical1->get_height() == 0);
 	}
 	SECTION("Generate PostScript")
 	{
-
+		REQUIRE(vertical1->generate() == "");
 	}
 }
