@@ -15,7 +15,7 @@ class CompoundShape: public Shape {
 public:
 	using Shape_ptr = std::unique_ptr<Shape>;
 
-	CompoundShape(std::vector<Shape_ptr> shapes);
+	CompoundShape(std::vector<Shape_ptr> shapes = {});
 	virtual ~CompoundShape()=default;
 
 	int get_height() const=0;
@@ -23,7 +23,6 @@ public:
 	void set_height(int height)=delete;
 	void set_width(int width)=delete;
 
-	size_t get_numShapes() const;
 	auto begin();
 	auto end();
 	auto begin() const;
@@ -34,7 +33,7 @@ private:
 
 class LayeredShapes: public CompoundShape {
 public:
-	LayeredShapes(std::vector<Shape_ptr> shapes);
+	LayeredShapes(std::vector<Shape_ptr> shapes = {});
 
 	int get_height() const override;
 	int get_width() const override;
@@ -46,7 +45,7 @@ private:
 
 class VerticalShapes: public CompoundShape {
 public:
-	VerticalShapes(std::vector<Shape_ptr> shapes);
+	VerticalShapes(std::vector<Shape_ptr> shapes = {});
 
 	int get_height() const override;
 	int get_width() const override;
