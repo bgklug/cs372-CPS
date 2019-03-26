@@ -8,6 +8,7 @@
 using std::vector;
 using std::stringstream;
 using std::move;
+using std::to_string;
 
 CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
 	: _shapes(move(shapes))
@@ -98,6 +99,15 @@ int VerticalShapes::get_width() const
 std::stringstream VerticalShapes::generate()
 {
 	stringstream postScriptFragment;
+
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		postScriptFragment << (*shape)->generate().str() << "\n";
+		if (shape + 1 != end()) {
+			postScriptFragment << to_string((*shape)->get_width()) << " "
+				<< to_string((*shape)->get_height()) << " rmoveto\n";
+		}
+	}
 
 	return postScriptFragment;
 }

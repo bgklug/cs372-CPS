@@ -84,6 +84,6 @@ TEST_CASE("Vertical Shape")
 	SECTION("Generate PostScript")
 	{
 		REQUIRE(vertical1->generate().str() == "");
-		REQUIRE(vertical2->generate().str() == "0 0 3 0 360 arc stroke");
+		REQUIRE(vertical2->generate().str() == "0 0 3 0 360 arc stroke\n");
 	}
 }
