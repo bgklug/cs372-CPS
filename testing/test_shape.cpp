@@ -61,3 +61,19 @@ TEST_CASE("Layered Shape")
 		REQUIRE(layered1->get_height() == 0);
 	}
 }
+
+TEST_CASE("Vertical Shape")
+{
+	SECTION("Width")
+	{
+
+	}
+	SECTION("Height")
+	{
+
+	}
+	SECTION("Generate PostScript")
+	{
+
+	}
+}
