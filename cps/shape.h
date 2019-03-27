@@ -36,6 +36,8 @@ private:
 class Rectangle : public Shape
 {
 public:
+    Rectangle() = default;
+    Rectangle(int, int);
     std::stringstream generate() override;
 private:
 };

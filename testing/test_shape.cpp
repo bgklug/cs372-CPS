@@ -31,7 +31,7 @@ TEST_CASE("Circle")
         REQUIRE(c4.get_width() == 20);
     }
 
-    SECTION("Code Generation")
+    SECTION("PostScript Generation")
     {
         std::string testCircle1 = "0 0 1 0 360 arc stroke";
         std::string testCircle2 = "0 0 10000 0 360 arc stroke";
@@ -66,9 +66,30 @@ TEST_CASE("Layered Shape")
 TEST_CASE("Rectangle")
 {
     Rectangle r1;
+    Rectangle r2(1,5);
+    Rectangle r3(10,20.1);
+    Rectangle r4(10000,400000);
+
+    SECTION("Getters")
+    {
+        REQUIRE(r1.get_width() == 0);
+        REQUIRE(r1.get_height() == 0);
+    }
 
     SECTION("Two Parameter Constructor")
     {
+        REQUIRE(r2.get_height() == 5);
+        REQUIRE(r2.get_width() == 1);
 
+        REQUIRE(r3.get_height() == 20);
+        REQUIRE(r3.get_width() == 10);
+
+        REQUIRE(r4.get_height() == 400000);
+        REQUIRE(r4.get_width() == 10000);
+    }
+    
+    SECTION("PostScript Generation")
+    {
+        
     }
 }
