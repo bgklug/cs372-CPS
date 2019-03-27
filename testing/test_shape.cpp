@@ -2,6 +2,8 @@
 //
 
 #include <memory>
+#include <string>
+using std::string;
 
 #include "catch.hpp"
 #include "../cps/shape.h"
@@ -33,9 +35,9 @@ TEST_CASE("Circle")
 
     SECTION("PostScript Generation")
     {
-        std::string testCircle1 = "0 0 1 0 360 arc stroke";
-        std::string testCircle2 = "0 0 10000 0 360 arc stroke";
-        std::string testCircle3 = "0 0 10 0 360 arc stroke";
+        string testCircle1 = "0 0 1 0 360 arc stroke";
+        string testCircle2 = "0 0 10000 0 360 arc stroke";
+        string testCircle3 = "0 0 10 0 360 arc stroke";
         REQUIRE(c2.generate().str() == testCircle1);
         REQUIRE(c3.generate().str() == testCircle2);
         REQUIRE(c4.generate().str() == testCircle3);
@@ -87,9 +89,32 @@ TEST_CASE("Rectangle")
         REQUIRE(r4.get_height() == 400000);
         REQUIRE(r4.get_width() == 10000);
     }
-    
+
     SECTION("PostScript Generation")
     {
-        
+        REQUIRE(r2.generate().str() == "newpath\n"
+                                       "0 -2 moveto\n"
+                                       "1 0 rlineto\n"
+                                       "0 5 rlineto\n"
+                                       "-1 0 rlineto\n"
+                                       "closepath\n"
+                                       "stroke");
+
+        REQUIRE(r3.generate().str() == "newpath\n"
+                                       "-5 -10 moveto\n"
+                                       "10 0 rlineto\n"
+                                       "0 20 rlineto\n"
+                                       "-10 0 rlineto\n"
+                                       "closepath\n"
+                                       "stroke");
+
+        REQUIRE(r4.generate().str() == "newpath\n"
+                                       "-5000 -200000 moveto\n"
+                                       "10000 0 rlineto\n"
+                                       "0 400000 rlineto\n"
+                                       "-10000 0 rlineto\n"
+                                       "closepath\n"
+                                       "stroke");
+
     }
 }

@@ -42,5 +42,17 @@ std::stringstream Circle::generate()
 
 std::stringstream Rectangle::generate()
 {
-    return std::stringstream();
+    return std::stringstream("newpath\n"
+                             + std::to_string(-1*get_width()/2) + " " + std::to_string(-1*get_height()/2) + " moveto\n"
+                             + std::to_string(get_width()) + " 0 rlineto\n"
+                             + "0 " + std::to_string(get_height()) + " rlineto\n"
+                             + std::to_string(-1*get_width()) + " 0 rlineto\n"
+                             "closepath\n"
+                             "stroke");
+}
+
+Rectangle::Rectangle(int width, int height)
+{
+    set_height(height);
+    set_width(width);
 }
