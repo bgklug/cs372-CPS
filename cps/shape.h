@@ -10,16 +10,16 @@
 class Shape
 {
 public:
-    virtual int get_height() const;
-    virtual int get_width() const;
-    void set_height(int height);
-    void set_width(int width);
+    virtual double get_height() const;
+    virtual double get_width() const;
+    void set_height(double height);
+    void set_width(double width);
 
     virtual std::stringstream generate()=0;
 
 private:
-    int _height { 0 };
-    int _width { 0 };
+    double _height { 0 };
+    double _width { 0 };
 };
 
 class Circle : public Shape

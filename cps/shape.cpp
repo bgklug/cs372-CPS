@@ -4,22 +4,22 @@
 
 #include "shape.h"
 
-int Shape::get_height() const
+double Shape::get_height() const
 {
     return _height;
 }
 
-int Shape::get_width() const
+double Shape::get_width() const
 {
     return _width;
 }
 
-void Shape::set_height(int height)
+void Shape::set_height(double height)
 {
     _height = height;
 }
 
-void Shape::set_width(int width)
+void Shape::set_width(double width)
 {
     _width = width;
 }
