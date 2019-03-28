@@ -6,6 +6,8 @@
 #define CS372_CPS_SHAPE_H
 
 #include <sstream>
+#include <cmath>
+
 
 class Shape
 {
@@ -36,12 +38,15 @@ private:
 class Polygon : public Shape
 {
 public:
-    Polygon(int numSides, int sideLength);
+    ~Polygon() = default;
+    Polygon(int, double);
 
-    std::stringstream generate(){};
+    std::stringstream generate();
 
 private:
-
+    const double pi =  std::acos(-1);
+    float _numSides{0};
+    float _sideLength{0};
 };
 
 
