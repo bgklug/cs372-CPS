@@ -12,8 +12,8 @@
 class Shape
 {
 public:
-    int get_height() const;
-    int get_width() const;
+    virtual int get_height() const;
+    virtual int get_width() const;
     void set_height(int height);
     void set_width(int width);
 
@@ -29,8 +29,19 @@ class Circle : public Shape
 {
 public:
     Circle() = default;
+    explicit Circle(int);
 
-    std::stringstream generate(){};
+    std::stringstream generate() override;
+private:
+    void setRadius(int);
+};
+
+class Rectangle : public Shape
+{
+public:
+    Rectangle() = default;
+    Rectangle(int, int);
+    std::stringstream generate() override;
 private:
 };
 
