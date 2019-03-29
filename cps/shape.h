@@ -62,5 +62,18 @@ private:
     float _sideLength{0};
 };
 
+class Square : public Polygon
+{
+public:
+    Square(double sideLength):Polygon(4, sideLength) {};
+    ~Square() = default;
+};
+
+class Triangle : public Polygon
+{
+public:
+    Triangle(double sideLength):Polygon(3, sideLength) {};
+    ~Triangle() = default;
+};
 
 #endif //CS372_CPS_SHAPE_H

@@ -64,6 +64,7 @@ Rectangle::Rectangle(double width, double height)
     set_width(width);
 }
 
+// Polygon Class
 Polygon::Polygon(int numSides, double sideLength)
 {
     _numSides = numSides;
@@ -85,7 +86,6 @@ Polygon::Polygon(int numSides, double sideLength)
         set_width( sideLength / sin(pi / numSides) );
     }
 }
-
 
 stringstream Polygon::generate()
 {
