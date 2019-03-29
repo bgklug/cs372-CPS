@@ -26,18 +26,18 @@ class Circle : public Shape
 {
 public:
     Circle() = default;
-    explicit Circle(int);
+    explicit Circle(double);
 
     std::stringstream generate() override;
 private:
-    void setRadius(int);
+    void setRadius(double);
 };
 
 class Rectangle : public Shape
 {
 public:
     Rectangle() = default;
-    Rectangle(int, int);
+    Rectangle(double, double);
     std::stringstream generate() override;
 private:
 };
