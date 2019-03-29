@@ -3,7 +3,10 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 using std::string;
+using std::vector;
+using std::make_unique;
 
 #include "catch.hpp"
 #include "../cps/shape.h"
@@ -78,36 +81,59 @@ TEST_CASE("Polygon","[polygon]")
 
 TEST_CASE("Layered Shape")
 {
-	auto v1 = std::vector<std::unique_ptr<Shape>>();
-	v1.push_back(std::make_unique<Circle>());
+    vector<CompoundShape::Shape_ptr> v2;
+    v2.push_back(make_unique<Circle>(10));
+    vector<CompoundShape::Shape_ptr> v3;
+    v3.push_back(make_unique<Circle>(10));
+    v3.push_back(make_unique<Rectangle>(10, 25));
 
-	auto layered1 = std::make_unique<LayeredShapes>(
-		std::move(v1)
-	);
-	SECTION("width")
+    auto layered1 = make_unique<LayeredShapes>();
+    auto layered2 = make_unique<LayeredShapes>(move(v2));
+    auto layered3 = make_unique<LayeredShapes>(move(v3));
+
+	SECTION("Width")
 	{
 		REQUIRE(layered1->get_width() == 0);
+		REQUIRE(layered2->get_width() == 20);
+		REQUIRE(layered3->get_width() == 20);
 	}
 
-	SECTION("height")
+	SECTION("Height")
 	{
 		REQUIRE(layered1->get_height() == 0);
-	}
+		REQUIRE(layered2->get_height() == 20);
+		REQUIRE(layered3->get_height() == 25);
+    }
+
+    SECTION("Generate")
+    {
+		REQUIRE(layered1->generate().str() == "");
+    }
 }
 
 TEST_CASE("Horizontal Shape")
 {
-	auto horizontal1 = std::make_unique<HorizontalShapes>();
-	auto horizontal2 = std::make_unique<HorizontalShapes>();
-	auto horizontal3 = std::make_unique<HorizontalShapes>();
+    vector<CompoundShape::Shape_ptr> v2;
+    v2.push_back(make_unique<Circle>(10));
+    vector<CompoundShape::Shape_ptr> v3;
+    v3.push_back(make_unique<Circle>(10));
+    v3.push_back(make_unique<Rectangle>(10, 25));
+
+    auto horizontal1 = make_unique<LayeredShapes>();
+    auto horizontal2 = make_unique<LayeredShapes>(move(v2));
+    auto horizontal3 = make_unique<LayeredShapes>(move(v3));
 
 	SECTION("Width")
 	{
 		REQUIRE(horizontal1->get_width() == 0);
+		REQUIRE(horizontal2->get_width() == 20);
+		REQUIRE(horizontal3->get_width() == 20);
 	}
 	SECTION("Height")
 	{
 		REQUIRE(horizontal1->get_height() == 0);
+		REQUIRE(horizontal2->get_height() == 20);
+		REQUIRE(horizontal3->get_height() == 25);
 	}
 	SECTION("PostScript Generation")
 	{
