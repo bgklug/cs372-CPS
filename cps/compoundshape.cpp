@@ -17,19 +17,19 @@ size_t CompoundShape::CompoundShape::get_numShapes() const
 	return _shapes.size();
 }
 
-auto CompoundShape::begin()
+CompoundShape::iterator CompoundShape::begin()
 {
 	return _shapes.begin();
 }
-auto CompoundShape::end()
+CompoundShape::iterator CompoundShape::end()
 {
 	return _shapes.end();
 }
-auto CompoundShape::begin() const
+CompoundShape::const_iterator CompoundShape::begin() const
 {
 	return _shapes.begin();
 }
-auto CompoundShape::end() const
+CompoundShape::const_iterator CompoundShape::end() const
 {
 	return _shapes.end();
 }
