@@ -48,8 +48,8 @@ class HorizontalShapes: public CompoundShape {
 public:
 	HorizontalShapes(std::vector<Shape_ptr> shapes = {});
 
-	int get_height() const override;
-	int get_width() const override;
+	double get_height() const override;
+	double get_width() const override;
 
 	std::stringstream generate();
 private:

@@ -65,7 +65,10 @@ double LayeredShapes::get_width() const
 stringstream LayeredShapes::generate()
 {
 	stringstream postScriptFragment;
-
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		postScriptFragment << (*shape)->generate().str() << "\n";
+	}
 	return postScriptFragment;
 }
 
@@ -74,7 +77,7 @@ HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
 	: CompoundShape(move(shapes))
 {}
 
-int HorizontalShapes::get_height() const
+double HorizontalShapes::get_height() const
 {
 	auto maxHeight{0};
 	for (auto shape = begin(); shape != end(); ++shape)
@@ -85,7 +88,7 @@ int HorizontalShapes::get_height() const
 	}
 	return maxHeight;
 }
-int HorizontalShapes::get_width() const
+double HorizontalShapes::get_width() const
 {
 	auto totalWidth{0};
 	for (auto shape = begin(); shape != end(); ++shape)
