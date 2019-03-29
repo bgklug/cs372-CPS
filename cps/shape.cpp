@@ -57,11 +57,3 @@ Rectangle::Rectangle(int width, int height)
     set_width(width);
 }
 
-std::stringstream Spacer::generate()
-{
-    return std::stringstream();
-}
-
-Spacer::Spacer(int width, int height) : Rectangle(width,height)
-{}
-
