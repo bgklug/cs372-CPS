@@ -38,7 +38,7 @@ LayeredShapes::LayeredShapes(vector<Shape_ptr> shapes)
 	: CompoundShape(move(shapes))
 {}
 
-int LayeredShapes::get_height() const
+double LayeredShapes::get_height() const
 {
 	auto maxHeight{0};
 	for (auto shape = begin(); shape != end(); ++shape)
@@ -50,7 +50,7 @@ int LayeredShapes::get_height() const
 	return maxHeight;
 }
 
-int LayeredShapes::get_width() const
+double LayeredShapes::get_width() const
 {
 	auto maxWidth{0};
 	for (auto shape = begin(); shape != end(); ++shape)
