@@ -12,10 +12,12 @@ class Shape
 public:
     virtual double get_height() const;
     virtual double get_width() const;
-    void set_height(double height);
-    void set_width(double width);
 
     virtual std::stringstream generate()=0;
+
+protected:
+    void set_height(double height);
+    void set_width(double width);
 
 private:
     double _height { 0 };
