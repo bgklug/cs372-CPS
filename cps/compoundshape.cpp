@@ -101,6 +101,10 @@ double HorizontalShapes::get_width() const
 std::stringstream HorizontalShapes::generate()
 {
 	stringstream postScriptFragment;
-
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		postScriptFragment << (*shape)->generate().str() << "\n";
+		postScriptFragment << std::to_string((*shape)->getWidth()) << " 0 move\n";
+	}
 	return postScriptFragment;
 }
