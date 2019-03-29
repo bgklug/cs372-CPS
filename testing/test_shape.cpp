@@ -118,3 +118,29 @@ TEST_CASE("Rectangle")
 
     }
 }
+
+TEST_CASE("Rotated Shapes")
+{
+    Rectangle r1(80, 40);
+    Rotated rot1(std::make_unique<Rectangle>(r1), 90);
+
+    SECTION("Width and Height changes")
+    {
+        REQUIRE(rot1.get_height() == r1.get_width());
+        REQUIRE(rot1.get_width() == r1.get_height());
+    }
+
+    SECTION("Generate PostScript")
+    {
+        REQUIRE( rot1.generate().str() == "gsave\n"
+                                         "90 rotate\n"
+                                         "newpath\n"
+                                         "-40.000000 -20.000000 moveto\n"
+                                         "80.000000 0 rlineto\n"
+                                         "0 40.000000 rlineto\n"
+                                         "-80.000000 0 rlineto\n"
+                                         "closepath\n"
+                                         "stroke \n"
+                                         "grestore");
+    }
+}

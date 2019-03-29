@@ -44,4 +44,14 @@ private:
 
 };
 
+class Rotated : public Shape
+{
+public:
+    Rotated(std::unique_ptr<Shape>, int);
+    std::stringstream generate() override;
+private:
+   std::unique_ptr<Shape> _originalShape;
+   int _rotation;
+};
+
 #endif //CS372_CPS_COUMPOUNDSHAPE_H

@@ -42,4 +42,13 @@ public:
 private:
 };
 
+class Spacer : public Rectangle
+{
+public:
+    Spacer() = default;
+    Spacer(int, int);
+    std::stringstream generate() override;
+private:
+};
+
 #endif //CS372_CPS_SHAPE_H

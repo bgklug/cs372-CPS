@@ -48,7 +48,7 @@ std::stringstream Rectangle::generate()
                              + "0 " + std::to_string(get_height()) + " rlineto\n"
                              + std::to_string(-1*get_width()) + " 0 rlineto\n"
                              "closepath\n"
-                             "stroke");
+                             "stroke\n");
 }
 
 Rectangle::Rectangle(int width, int height)
@@ -56,3 +56,12 @@ Rectangle::Rectangle(int width, int height)
     set_height(height);
     set_width(width);
 }
+
+std::stringstream Spacer::generate()
+{
+    return std::stringstream();
+}
+
+Spacer::Spacer(int width, int height) : Rectangle(width,height)
+{}
+
