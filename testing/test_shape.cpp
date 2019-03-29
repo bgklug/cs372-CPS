@@ -85,9 +85,9 @@ TEST_CASE("Layered Shape")
     SECTION("Code Generation")
     {
         REQUIRE(layered1->generate().str() == "");
-        REQUIRE(layered2->generate().str() == "0 0 0 0 360 arc stroke\n");
-        REQUIRE(layered3->generate().str() == "0 0 10 0 360 arc stroke\n");
-        REQUIRE(layered4->generate().str() == "0 0 10 0 360 arc stroke\n0 0 15 0 360 arc stroke\n");
+        REQUIRE(layered2->generate().str() == "0 0 0.000000 0 360 arc stroke\n");
+        REQUIRE(layered3->generate().str() == "0 0 10.000000 0 360 arc stroke\n");
+        REQUIRE(layered4->generate().str() == "0 0 10.000000 0 360 arc stroke\n0 0 15.000000 0 360 arc stroke\n");
     }
 }
 
@@ -176,6 +176,17 @@ TEST_CASE("Rotated Shapes")
                                          "stroke\n"
                                          "grestore\n");
 
-        //REQUIRE(rot2.generate().str() == ""); TODO: Get the things I need to finish this test
+        REQUIRE(rot2.generate().str() == "gsave\n"
+                                         "180 rotate\n"
+                                         "0 0 10.000000 0 360 arc stroke\n"
+                                         "newpath\n"
+                                         "-40.000000 -20.000000 moveto\n"
+                                         "80.000000 0 rlineto\n"
+                                         "0 40.000000 rlineto\n"
+                                         "-80.000000 0 rlineto\n"
+                                         "closepath\n"
+                                         "stroke\n"
+                                         "\n"
+                                         "grestore\n");
     }
 }
