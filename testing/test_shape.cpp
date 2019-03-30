@@ -154,10 +154,23 @@ TEST_CASE("Scaled Shape")
 {
     Scaled sc1(std::make_unique<Circle>(20), 2, 2);
 
+    std::vector<std::unique_ptr<Shape>> vectOfShapes;
+    vectOfShapes.push_back(std::make_unique<Rectangle>(40, 20));
+    vectOfShapes.push_back(std::make_unique<Polygon>(6, 20));
+    vectOfShapes.push_back(std::make_unique<Circle>(40));
+
+    Scaled sc2(std::make_unique<LayeredShapes>(std::move(vectOfShapes)), 1.5, 3);
+
+    Scaled sc3(std::make_unique<Polygon>(8, 10), 4, 6);
+
     SECTION("Shape Changed Height and Width")
     {
         REQUIRE(sc1.get_width() == 80);
         REQUIRE(sc1.get_height() == 80);
+
+//        REQUIRE(sc2.get_width() == 189);
+
+//        REQUIRE(sc3.get_width() == 32);
     }
 
     SECTION("PostScript Generation")
@@ -165,6 +178,11 @@ TEST_CASE("Scaled Shape")
         REQUIRE(sc1.generate().str() == "gsave\n"
                                         "0 0 40.000000 0 360 arc stroke\n"
                                         "grestore\n"
-                                        );
+        );
+
+//        REQUIRE(sc2.generate().str() == "gsave\n"
+//                                        "0 0 40.000000 0 360 arc stroke\n"
+//                                        "grestore\n"
+//        );
     }
 }
