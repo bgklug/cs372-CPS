@@ -105,18 +105,16 @@ TEST_CASE("Layered Shape")
 		REQUIRE(layered3->get_height() == 25);
     }
 
-    SECTION("Generate")
+    SECTION("PostScript Generation")
     {
 		REQUIRE(layered1->generate().str() == "");
-		REQUIRE(layered2->generate().str() == "0 0 10.000000 0 360 arc stroke\n");
-		REQUIRE(layered3->generate().str() == "0 0 10.000000 0 360 arc stroke\n" \
-                                                "newpath\n" \
-                                                "-5.000000 -12.500000 moveto\n" \
-                                                "10.000000 0 rlineto\n" \
-                                                "0 25.000000 rlineto\n" \
-                                                "-10.000000 0 rlineto\n" \
-                                                "closepath\n" \
-                                                "stroke\n");
+		REQUIRE(layered2->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+        );
+		REQUIRE(layered3->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+            + make_unique<Rectangle>(10, 25)->generate().str() + "\n"
+        );
     }
 }
 
@@ -126,36 +124,35 @@ TEST_CASE("Horizontal Shape")
     v2.push_back(make_unique<Circle>(10));
     vector<CompoundShape::Shape_ptr> v3;
     v3.push_back(make_unique<Circle>(10));
-    v3.push_back(make_unique<Rectangle>(10, 25));
+    v3.push_back(make_unique<Circle>(10));
 
-    auto horizontal1 = make_unique<LayeredShapes>();
-    auto horizontal2 = make_unique<LayeredShapes>(move(v2));
-    auto horizontal3 = make_unique<LayeredShapes>(move(v3));
+    auto horizontal1 = make_unique<HorizontalShapes>();
+    auto horizontal2 = make_unique<HorizontalShapes>(move(v2));
+    auto horizontal3 = make_unique<HorizontalShapes>(move(v3));
 
 	SECTION("Width")
 	{
 		REQUIRE(horizontal1->get_width() == 0);
 		REQUIRE(horizontal2->get_width() == 20);
-		REQUIRE(horizontal3->get_width() == 20);
+		REQUIRE(horizontal3->get_width() == 40);
 	}
 	SECTION("Height")
 	{
 		REQUIRE(horizontal1->get_height() == 0);
 		REQUIRE(horizontal2->get_height() == 20);
-		REQUIRE(horizontal3->get_height() == 25);
+		REQUIRE(horizontal3->get_height() == 20);
 	}
 	SECTION("PostScript Generation")
 	{
 		REQUIRE(horizontal1->generate().str() == "");
-		REQUIRE(horizontal2->generate().str() == "0 0 10.000000 0 360 arc stroke\n");
-		REQUIRE(horizontal3->generate().str() == "0 0 10.000000 0 360 arc stroke\n" \
-                                                    "newpath\n" \
-                                                    "-5.000000 -12.500000 moveto\n" \
-                                                    "10.000000 0 rlineto\n" \
-                                                    "0 25.000000 rlineto\n" \
-                                                    "-10.000000 0 rlineto\n" \
-                                                    "closepath\n" \
-                                                    "stroke\n");
+		REQUIRE(horizontal2->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+        );
+		REQUIRE(horizontal3->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+            + "0 20.000000 translate\n"
+            + make_unique<Circle>(10)->generate().str() + "\n"
+        );
 	}
 }
 
