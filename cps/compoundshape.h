@@ -45,8 +45,11 @@ private:
 
 class Scaled : public Shape
 {
-public:
+    Scaled(std::unique_ptr<Shape>, int);
+    std::stringstream generate() override;
 private:
+    std::unique_ptr<Shape> _originalShape;
+    int _scaleFactor;
 };
 
 #endif //CS372_CPS_COUMPOUNDSHAPE_H

@@ -68,3 +68,13 @@ stringstream LayeredShapes::generate()
 
 	return postScriptFragment;
 }
+
+Scaled::Scaled(std::unique_ptr<Shape>, int)
+{
+
+}
+
+std::stringstream Scaled::generate()
+{
+    return std::stringstream();
+}
