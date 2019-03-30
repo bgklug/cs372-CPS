@@ -41,7 +41,12 @@ public:
 
 	std::stringstream generate();
 private:
+};
 
+class Scaled : public Shape
+{
+public:
+private:
 };
 
 #endif //CS372_CPS_COUMPOUNDSHAPE_H
