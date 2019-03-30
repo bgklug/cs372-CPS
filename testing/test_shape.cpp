@@ -120,9 +120,9 @@ TEST_CASE("Layered Shape")
     SECTION("Code Generation")
     {
         REQUIRE(layered1->generate().str() == "");
-        REQUIRE(layered2->generate().str() == "0 0 0.000000 0 360 arc stroke\n");
-        REQUIRE(layered3->generate().str() == "0 0 10.000000 0 360 arc stroke\n");
-        REQUIRE(layered4->generate().str() == "0 0 10.000000 0 360 arc stroke\n0 0 15.000000 0 360 arc stroke\n");
+        REQUIRE(layered2->generate().str() == "0 0 0.000000 0 360 arc stroke\n\n");
+        REQUIRE(layered3->generate().str() == "0 0 10.000000 0 360 arc stroke\n\n");
+        REQUIRE(layered4->generate().str() == "0 0 10.000000 0 360 arc stroke\n\n0 0 15.000000 0 360 arc stroke\n\n");
     }
 }
 
@@ -192,11 +192,11 @@ TEST_CASE("Rotated Shapes")
 
     auto layer1 = std::make_unique<LayeredShapes>(std::move(aFewShapes));
 
-    auto vert1 = std::make_unique<VerticalShapes>(std::move(aFewShapes));
+//    auto vert1 = std::make_unique<VerticalShapes>(std::move(aFewShapes));
 
     Rotated rot1(std::make_unique<Rectangle>(80, 40), 90);
     Rotated rot2(std::move(layer1), 180);
-    Rotated rot3(std::move(vert1), 270);
+//    Rotated rot3(std::move(vert1), 270);
 
     SECTION("Width and Height changes")
     {
@@ -223,6 +223,7 @@ TEST_CASE("Rotated Shapes")
         REQUIRE(rot2.generate().str() == "gsave\n"
                                          "180 rotate\n"
                                          "0 0 10.000000 0 360 arc stroke\n"
+                                         "\n"
                                          "newpath\n"
                                          "-40.000000 -20.000000 moveto\n"
                                          "80.000000 0 rlineto\n"
@@ -235,26 +236,4 @@ TEST_CASE("Rotated Shapes")
 
 //        REQUIRE(rot3.generate().str() == "");
     }
-}
-
-TEST_CASE("Vertical Shape")
-{
-	auto vertical1 = make_unique<VerticalShapes>();
-	auto vertical2 = make_unique<VerticalShapes>();
-	vertical2->pushShape(move(make_unique<Circle>(3)));
-	SECTION("Width")
-	{
-		REQUIRE(vertical1->get_width() == 0);
-		REQUIRE(vertical2->get_width() == 6);
-	}
-	SECTION("Height")
-	{
-		REQUIRE(vertical1->get_height() == 0);
-		REQUIRE(vertical2->get_width() == 6);
-	}
-	SECTION("Generate PostScript")
-	{
-		REQUIRE(vertical1->generate().str() == "");
-		REQUIRE(vertical2->generate().str() == "0 0 3.000000 0 360 arc stroke\n");
-	}
 }

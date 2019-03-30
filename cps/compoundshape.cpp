@@ -74,46 +74,6 @@ stringstream LayeredShapes::generate()
 	return postScriptFragment;
 }
 
-VerticalShapes::VerticalShapes(std::vector<Shape_ptr> shapes)
-	: CompoundShape(move(shapes))
-{}
-
-double VerticalShapes::get_height() const
-{
-	auto totalHeight{0.0};
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-		totalHeight += (*shape)->get_height();
-	};
-	return totalHeight;
-}
-
-double VerticalShapes::get_width() const
-{
-	auto maxWidth{0};
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-		if ((*shape)->get_width() > maxWidth) {
-			maxWidth = (*shape)->get_width();
-		}
-	};
-	return maxWidth;
-}
-
-std::stringstream VerticalShapes::generate()
-{
-	stringstream postScriptFragment;
-
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-		postScriptFragment << (*shape)->generate().str() << "\n";
-		if (shape + 1 != end()) {
-			postScriptFragment << "0 " << to_string((*shape)->get_height()) << " rmoveto\n";
-		}
-	}
-
-	return postScriptFragment;
-}
 Rotated::Rotated(std::unique_ptr<Shape> shape, int degrees) : _rotation{degrees}
 {
     if(degrees == 90 || degrees == 270)
