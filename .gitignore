@@ -5,7 +5,8 @@ Makefile
 cmake_install.cmake
 
 build/*
-build/*/**
+
+*.ps
 
 # ignore executables
 test_cps
