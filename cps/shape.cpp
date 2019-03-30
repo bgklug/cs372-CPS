@@ -55,7 +55,7 @@ std::stringstream Rectangle::generate()
                              + "0 " + std::to_string(get_height()) + " rlineto\n"
                              + std::to_string(-1*get_width()) + " 0 rlineto\n"
                              "closepath\n"
-                             "stroke");
+                             "stroke\n");
 }
 
 Rectangle::Rectangle(double width, double height)
