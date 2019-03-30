@@ -108,6 +108,15 @@ TEST_CASE("Layered Shape")
     SECTION("Generate")
     {
 		REQUIRE(layered1->generate().str() == "");
+		REQUIRE(layered2->generate().str() == "0 0 10.000000 0 360 arc stroke\n");
+		REQUIRE(layered3->generate().str() == "0 0 10.000000 0 360 arc stroke\n" \
+                                                "newpath\n" \
+                                                "-5.000000 -12.500000 moveto\n" \
+                                                "10.000000 0 rlineto\n" \
+                                                "0 25.000000 rlineto\n" \
+                                                "-10.000000 0 rlineto\n" \
+                                                "closepath\n" \
+                                                "stroke\n");
     }
 }
 
@@ -138,6 +147,15 @@ TEST_CASE("Horizontal Shape")
 	SECTION("PostScript Generation")
 	{
 		REQUIRE(horizontal1->generate().str() == "");
+		REQUIRE(horizontal2->generate().str() == "0 0 10.000000 0 360 arc stroke\n");
+		REQUIRE(horizontal3->generate().str() == "0 0 10.000000 0 360 arc stroke\n" \
+                                                    "newpath\n" \
+                                                    "-5.000000 -12.500000 moveto\n" \
+                                                    "10.000000 0 rlineto\n" \
+                                                    "0 25.000000 rlineto\n" \
+                                                    "-10.000000 0 rlineto\n" \
+                                                    "closepath\n" \
+                                                    "stroke\n");
 	}
 }
 

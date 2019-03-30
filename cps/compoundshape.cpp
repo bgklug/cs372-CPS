@@ -104,7 +104,9 @@ std::stringstream HorizontalShapes::generate()
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
 		postScriptFragment << (*shape)->generate().str() << "\n";
-		postScriptFragment << std::to_string((*shape)->get_width()) << " 0 move\n";
+		if (shape + 1 != end()) {
+			postScriptFragment << "0 " << std::to_string((*shape)->get_width()) << " translate\n";
+		}
 	}
 	return postScriptFragment;
 }
