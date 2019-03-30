@@ -83,9 +83,9 @@ Polygon::Polygon(int numSides, double sideLength)
 }
 
 
-stringstream Polygon::generate()
+std::stringstream Polygon::generate()
 {
-    stringstream output;
+    std::stringstream output;
 
     output << "%!\n" << "newpath\n";
     output << "/length " << std::to_string(_sideLength) << " def\n";

@@ -78,9 +78,9 @@ VerticalShapes::VerticalShapes(std::vector<Shape_ptr> shapes)
 	: CompoundShape(move(shapes))
 {}
 
-int VerticalShapes::get_height() const
+double VerticalShapes::get_height() const
 {
-	auto totalHeight{0};
+	auto totalHeight{0.0};
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
 		totalHeight += (*shape)->get_height();
@@ -88,7 +88,7 @@ int VerticalShapes::get_height() const
 	return totalHeight;
 }
 
-int VerticalShapes::get_width() const
+double VerticalShapes::get_width() const
 {
 	auto maxWidth{0};
 	for (auto shape = begin(); shape != end(); ++shape)
