@@ -119,7 +119,7 @@ TEST_CASE("Layered Shape")
 
     SECTION("Code Generation")
     {
-        REQUIRE(layered1->generate().str() == "");
+        REQUIRE(layered1->generate().str().empty());
         REQUIRE(layered2->generate().str() == "0 0 0.000000 0 360 arc stroke\n\n");
         REQUIRE(layered3->generate().str() == "0 0 10.000000 0 360 arc stroke\n\n");
         REQUIRE(layered4->generate().str() == "0 0 10.000000 0 360 arc stroke\n\n0 0 15.000000 0 360 arc stroke\n\n");
