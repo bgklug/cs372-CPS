@@ -39,9 +39,9 @@ TEST_CASE("Circle")
 
     SECTION("PostScript Generation")
     {
-        string testCircle1 = "0 0 1.000000 0 360 arc stroke";
-        string testCircle2 = "0 0 10000.000000 0 360 arc stroke";
-        string testCircle3 = "0 0 10.900000 0 360 arc stroke";
+        string testCircle1 = "0 0 1.000000 0 360 arc stroke\n";
+        string testCircle2 = "0 0 10000.000000 0 360 arc stroke\n";
+        string testCircle3 = "0 0 10.900000 0 360 arc stroke\n";
         REQUIRE(c2.generate().str() == testCircle1);
         REQUIRE(c3.generate().str() == testCircle2);
         REQUIRE(c4.generate().str() == testCircle3);
