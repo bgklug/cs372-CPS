@@ -127,5 +127,10 @@ std::stringstream Scaled::generate()
     scaledShape->set_height(get_height());
     scaledShape->set_width(get_width());
 
-    return scaledShape->generate();
+    std::stringstream output;
+    output << "gsave" << std::endl;
+    output << scaledShape->generate().str();
+    output << "grestore" << std::endl;
+
+    return output;
 }

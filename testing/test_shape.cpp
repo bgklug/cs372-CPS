@@ -162,9 +162,9 @@ TEST_CASE("Scaled Shape")
 
     SECTION("PostScript Generation")
     {
-        REQUIRE(sc1.generate().str() == //"gsave\n"
+        REQUIRE(sc1.generate().str() == "gsave\n"
                                         "0 0 40.000000 0 360 arc stroke\n"
-                                        //"grestore\n"
+                                        "grestore\n"
                                         );
     }
 }
