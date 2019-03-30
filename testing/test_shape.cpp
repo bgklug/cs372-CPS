@@ -9,6 +9,10 @@ using std::string;
 #include "../cps/shape.h"
 #include "../cps/compoundshape.h"
 
+using std::vector;
+using std::move;
+using std::make_unique;
+
 TEST_CASE("Circle")
 {
     Circle c1;
@@ -220,4 +224,26 @@ TEST_CASE("Rotated Shapes")
                                          "\n"
                                          "grestore\n");
     }
+}
+
+TEST_CASE("Vertical Shape")
+{
+	auto vertical1 = make_unique<VerticalShapes>();
+	auto vertical2 = make_unique<VerticalShapes>();
+	vertical2->pushShape(move(make_unique<Circle>(3)));
+	SECTION("Width")
+	{
+		REQUIRE(vertical1->get_width() == 0);
+		REQUIRE(vertical2->get_width() == 6);
+	}
+	SECTION("Height")
+	{
+		REQUIRE(vertical1->get_height() == 0);
+		REQUIRE(vertical2->get_width() == 6);
+	}
+	SECTION("Generate PostScript")
+	{
+		REQUIRE(vertical1->generate().str() == "");
+		REQUIRE(vertical2->generate().str() == "0 0 3 0 360 arc stroke\n");
+	}
 }
