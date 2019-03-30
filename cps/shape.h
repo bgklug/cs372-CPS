@@ -54,7 +54,7 @@ public:
     ~Polygon() = default;
     Polygon(int, double);
 
-    std::stringstream generate();
+    std::stringstream generate() override;
 
 private:
     const double pi =  std::acos(-1);

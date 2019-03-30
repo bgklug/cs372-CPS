@@ -2,8 +2,8 @@
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
 
-#ifndef CS372_CPS_COUMPOUNDSHAPE_H
-#define CS372_CPS_COUMPOUNDSHAPE_H
+#ifndef CS372_CPS_COMPOUNDSHAPE_H
+#define CS372_CPS_COMPOUNDSHAPE_H
 
 #include <memory>
 #include <sstream>
@@ -15,7 +15,7 @@ class CompoundShape: public Shape {
 public:
 	using Shape_ptr = std::unique_ptr<Shape>;
 
-	CompoundShape(std::vector<Shape_ptr> shapes);
+	explicit CompoundShape(std::vector<Shape_ptr> shapes);
 	virtual ~CompoundShape()=default;
 
 	virtual double get_height() const=0;
@@ -35,19 +35,7 @@ private:
 
 class LayeredShapes: public CompoundShape {
 public:
-	LayeredShapes(std::vector<Shape_ptr> shapes = {});
-
-	double get_height() const override;
-	double get_width() const override;
-
-	std::stringstream generate();
-private:
-
-};
-
-class VerticalShapes: public CompoundShape {
-public:
-	VerticalShapes(std::vector<Shape_ptr> shapes = {});
+	explicit LayeredShapes(std::vector<Shape_ptr> shapes = {});
 
 	double get_height() const override;
 	double get_width() const override;
@@ -67,4 +55,4 @@ private:
    int _rotation;
 };
 
-#endif //CS372_CPS_COUMPOUNDSHAPE_H
+#endif //CS372_CPS_COMPOUNDSHAPE_H

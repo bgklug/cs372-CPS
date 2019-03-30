@@ -8,6 +8,8 @@ using std::vector;
 using std::stringstream;
 using std::move;
 using std::to_string;
+using std::begin;
+using std::end;
 
 CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
 	: _shapes(move(shapes))
@@ -40,7 +42,7 @@ LayeredShapes::LayeredShapes(vector<Shape_ptr> shapes)
 
 double LayeredShapes::get_height() const
 {
-	auto maxHeight{0};
+	auto maxHeight{0.0};
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
 		if ((*shape)->get_height() > maxHeight) {
@@ -52,13 +54,13 @@ double LayeredShapes::get_height() const
 
 double LayeredShapes::get_width() const
 {
-	auto maxWidth{0};
+	auto maxWidth{0.0};
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
 		if ((*shape)->get_width() > maxWidth) {
 			maxWidth = (*shape)->get_width();
 		}
-	};
+	}
 	return maxWidth;
 }
 
