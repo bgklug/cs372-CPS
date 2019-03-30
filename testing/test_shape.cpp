@@ -149,3 +149,22 @@ TEST_CASE("Rectangle")
 
     }
 }
+
+TEST_CASE("Scaled Shape")
+{
+    Scaled sc1(std::make_unique<Circle>(20), 2, 2);
+
+    SECTION("Shape Changed Height and Width")
+    {
+        REQUIRE(sc1.get_width() == 80);
+        REQUIRE(sc1.get_height() == 80);
+    }
+
+    SECTION("PostScript Generation")
+    {
+        REQUIRE(sc1.generate().str() == //"gsave\n"
+                                        "0 0 40.000000 0 360 arc stroke\n"
+                                        //"grestore\n"
+                                        );
+    }
+}

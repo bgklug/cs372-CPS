@@ -124,6 +124,8 @@ Scaled::Scaled(std::unique_ptr<Shape> shape, double scaleFactorX, double scaleFa
 std::stringstream Scaled::generate()
 {
     std::unique_ptr<Shape> scaledShape = std::move(_originalShape);
+    scaledShape->set_height(get_height());
+    scaledShape->set_width(get_width());
 
-    return std::stringstream();
+    return scaledShape->generate();
 }

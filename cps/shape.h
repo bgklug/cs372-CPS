@@ -26,6 +26,7 @@ protected:
 private:
     double _height { 0 };
     double _width { 0 };
+    friend class Scaled;
 };
 
 
