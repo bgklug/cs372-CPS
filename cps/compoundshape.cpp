@@ -8,8 +8,6 @@ using std::vector;
 using std::stringstream;
 using std::move;
 using std::to_string;
-using std::begin;
-using std::end;
 
 CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
 	: _shapes(move(shapes))
