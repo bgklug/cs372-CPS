@@ -181,6 +181,11 @@ TEST_CASE("Rectangle")
     }
 }
 
+TEST_CASE("Spacer")
+{
+
+}
+
 TEST_CASE("Rotated Shapes")
 {
     std::unique_ptr<Shape> r1 = std::make_unique<Rectangle>(80, 40);
