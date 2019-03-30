@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <string>
+
 using std::string;
 
 #include "catch.hpp"
@@ -48,18 +49,18 @@ TEST_CASE("Circle")
     }
 }
 
-TEST_CASE("Polygon","[polygon]")
+TEST_CASE("Polygon", "[polygon]")
 {
     SECTION("Triangle")
     {
-        Polygon t(3,100);
+        Polygon t(3, 100);
         REQUIRE(t.get_width() == 100);
     }
     SECTION("Draw triangle")
     {
         Polygon t(3, 100);
 
-        REQUIRE( t.generate().str() == "%!\n" \
+        REQUIRE(t.generate().str() == "%!\n" \
             "newpath\n" \
             "/length 100.000000 def\n" \
             "/nSides 3.000000 def\n" \
@@ -101,21 +102,21 @@ TEST_CASE("Layered Shape")
     int diameter3{20};
     int diameter4{30};
 
-	SECTION("Width")
-	{
-		REQUIRE(layered1->get_width() == diameter1);
+    SECTION("Width")
+    {
+        REQUIRE(layered1->get_width() == diameter1);
         REQUIRE(layered2->get_width() == diameter2);
         REQUIRE(layered3->get_width() == diameter3);
         REQUIRE(layered4->get_width() == diameter4);
-	}
+    }
 
-	SECTION("Height")
-	{
-		REQUIRE(layered1->get_height() == diameter1);
+    SECTION("Height")
+    {
+        REQUIRE(layered1->get_height() == diameter1);
         REQUIRE(layered2->get_height() == diameter2);
         REQUIRE(layered3->get_height() == diameter3);
         REQUIRE(layered4->get_height() == diameter4);
-	}
+    }
 
     SECTION("Code Generation")
     {
@@ -130,9 +131,9 @@ TEST_CASE("Layered Shape")
 TEST_CASE("Rectangle")
 {
     Rectangle r1;
-    Rectangle r2(1,5);
-    Rectangle r3(10,20.1);
-    Rectangle r4(10000,400000);
+    Rectangle r2(1, 5);
+    Rectangle r3(10, 20.1);
+    Rectangle r4(10000, 400000);
 
     SECTION("Getters")
     {
@@ -183,7 +184,18 @@ TEST_CASE("Rectangle")
 
 TEST_CASE("Spacer")
 {
+    Spacer s1(40, 20);
 
+    SECTION("Width and Height Correct")
+    {
+        REQUIRE(s1.get_width() == 40);
+        REQUIRE(s1.get_height() == 20);
+    }
+
+    SECTION("PostScript Generation")
+    {
+
+    }
 }
 
 TEST_CASE("Rotated Shapes")

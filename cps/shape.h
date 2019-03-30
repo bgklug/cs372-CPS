@@ -47,6 +47,13 @@ public:
 private:
 };
 
+class Spacer : public Rectangle
+{
+public:
+    Spacer(double, double);
+    std::stringstream generate() override;
+private:
+};
 
 class Polygon : public Shape
 {
