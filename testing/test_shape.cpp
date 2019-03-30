@@ -31,9 +31,9 @@ TEST_CASE("Circle")
 
     SECTION("Code Generation")
     {
-        std::string testCircle1 = "0 0 1 0 360 arc stroke";
-        std::string testCircle2 = "0 0 10000 0 360 arc stroke";
-        std::string testCircle3 = "0 0 10 0 360 arc stroke";
+        std::string testCircle1 = "0 0 1 0 360 arc stroke\n";
+        std::string testCircle2 = "0 0 10000 0 360 arc stroke\n";
+        std::string testCircle3 = "0 0 10 0 360 arc stroke\n";
         REQUIRE(c2.generate().str() == testCircle1);
         REQUIRE(c3.generate().str() == testCircle2);
         REQUIRE(c4.generate().str() == testCircle3);

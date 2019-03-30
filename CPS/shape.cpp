@@ -37,6 +37,6 @@ Circle::Circle(int radius)
 
 std::stringstream Circle::generate()
 {
-    return std::stringstream("0 0 " + std::to_string(get_height()/2) + " 0 360 arc stroke");
+    return std::stringstream("0 0 " + std::to_string(get_height()/2) + " 0 360 arc stroke\n");
 }
 
