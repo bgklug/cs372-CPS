@@ -3,6 +3,7 @@
 //
 
 #include "compoundshape.h"
+#include "shape.h"
 
 using std::vector;
 using std::stringstream;
@@ -69,16 +70,3 @@ stringstream LayeredShapes::generate()
 	return postScriptFragment;
 }
 
-Scaled::Scaled(std::unique_ptr<Shape> shape, double scaleFactorX, double scaleFactorY)
-    : _scaleFactorX{scaleFactorX}, _scaleFactorY{scaleFactorY}
-{
-    set_width(shape->get_width()*scaleFactorX);
-    set_height(shape->get_height()*scaleFactorY);
-
-    _originalShape = std::move(shape);
-}
-
-std::stringstream Scaled::generate()
-{
-    return std::stringstream();
-}

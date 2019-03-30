@@ -7,6 +7,8 @@
 
 #include <sstream>
 #include <cmath>
+#include <memory>
+#include <vector>
 
 
 class Shape
@@ -62,5 +64,16 @@ private:
     float _sideLength{0};
 };
 
+
+class Scaled : public Shape
+{
+public:
+    Scaled(std::unique_ptr<Shape>, double, double);
+    std::stringstream generate() override;
+private:
+    std::unique_ptr<Shape> _originalShape;
+    double _scaleFactorX;
+    double _scaleFactorY;
+};
 
 #endif //CS372_CPS_SHAPE_H

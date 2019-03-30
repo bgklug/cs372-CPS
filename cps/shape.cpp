@@ -1,6 +1,7 @@
 //
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
+#include "compoundshape.h"
 #include <sstream>
 using std::stringstream;
 #include <cmath>
@@ -109,4 +110,20 @@ stringstream Polygon::generate()
     output << "showpage\n";
 
     return output;
+}
+
+Scaled::Scaled(std::unique_ptr<Shape> shape, double scaleFactorX, double scaleFactorY)
+    : _scaleFactorX{scaleFactorX}, _scaleFactorY{scaleFactorY}
+{
+    set_width(shape->get_width()*scaleFactorX);
+    set_height(shape->get_height()*scaleFactorY);
+
+    _originalShape = std::move(shape);
+}
+
+std::stringstream Scaled::generate()
+{
+    std::unique_ptr<Shape> scaledShape = std::move(_originalShape);
+
+    return std::stringstream();
 }
