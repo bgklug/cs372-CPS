@@ -14,8 +14,11 @@
 class CompoundShape: public Shape {
 public:
 	using Shape_ptr = std::unique_ptr<Shape>;
+	using iterator = std::vector<Shape_ptr>::iterator;
+	using const_iterator = std::vector<Shape_ptr>::const_iterator;
 
 	explicit CompoundShape(std::vector<Shape_ptr> shapes);
+
 	virtual ~CompoundShape()=default;
 
 	virtual double get_height() const=0;
@@ -24,11 +27,11 @@ public:
 	void set_width(double width)=delete;
 
 	void pushShape(Shape_ptr shape);
-
-	auto begin();
-	auto end();
-	auto begin() const;
-	auto end() const;
+	size_t get_numShapes() const;
+	iterator begin();
+	iterator end();
+	const_iterator begin() const;
+	const_iterator end() const;
 private:
 	std::vector<Shape_ptr> _shapes;
 };
@@ -36,6 +39,18 @@ private:
 class LayeredShapes: public CompoundShape {
 public:
 	explicit LayeredShapes(std::vector<Shape_ptr> shapes = {});
+
+	double get_height() const override;
+	double get_width() const override;
+
+	std::stringstream generate();
+private:
+
+};
+
+class HorizontalShapes: public CompoundShape {
+public:
+	explicit HorizontalShapes(std::vector<Shape_ptr> shapes = {});
 
 	double get_height() const override;
 	double get_width() const override;

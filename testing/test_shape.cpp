@@ -3,7 +3,10 @@
 
 #include <memory>
 #include <string>
+#include <vector>
 using std::string;
+using std::vector;
+using std::make_unique;
 
 #include "catch.hpp"
 #include "../cps/shape.h"
@@ -82,50 +85,80 @@ TEST_CASE("Polygon","[polygon]")
 
 TEST_CASE("Layered Shape")
 {
-    std::vector<CompoundShape::Shape_ptr> v1;
-    std::vector<CompoundShape::Shape_ptr> v2;
-    v2.push_back(std::make_unique<Circle>());
-    std::vector<CompoundShape::Shape_ptr> v3;
-    v3.push_back(std::make_unique<Circle>(10));
-    std::vector<CompoundShape::Shape_ptr> v4;
-    v4.push_back(std::make_unique<Circle>(10));
-    v4.push_back(std::make_unique<Circle>(15));
+    vector<CompoundShape::Shape_ptr> v2;
+    v2.push_back(make_unique<Circle>(10));
+    vector<CompoundShape::Shape_ptr> v3;
+    v3.push_back(make_unique<Circle>(10));
+    v3.push_back(make_unique<Rectangle>(10, 25));
 
-    auto layered1 = std::make_unique<LayeredShapes>(std::move(v1));
-    auto layered2 = std::make_unique<LayeredShapes>(std::move(v2));
-    auto layered3 = std::make_unique<LayeredShapes>(std::move(v3));
-    auto layered4 = std::make_unique<LayeredShapes>(std::move(v4));
-
-    int diameter1{0};
-    int diameter2{0};
-    int diameter3{20};
-    int diameter4{30};
+    auto layered1 = make_unique<LayeredShapes>();
+    auto layered2 = make_unique<LayeredShapes>(move(v2));
+    auto layered3 = make_unique<LayeredShapes>(move(v3));
 
 	SECTION("Width")
 	{
-		REQUIRE(layered1->get_width() == diameter1);
-        REQUIRE(layered2->get_width() == diameter2);
-        REQUIRE(layered3->get_width() == diameter3);
-        REQUIRE(layered4->get_width() == diameter4);
+		REQUIRE(layered1->get_width() == 0);
+		REQUIRE(layered2->get_width() == 20);
+		REQUIRE(layered3->get_width() == 20);
 	}
 
 	SECTION("Height")
 	{
-		REQUIRE(layered1->get_height() == diameter1);
-        REQUIRE(layered2->get_height() == diameter2);
-        REQUIRE(layered3->get_height() == diameter3);
-        REQUIRE(layered4->get_height() == diameter4);
-	}
+		REQUIRE(layered1->get_height() == 0);
+		REQUIRE(layered2->get_height() == 20);
+		REQUIRE(layered3->get_height() == 25);
+    }
 
-    SECTION("Code Generation")
+    SECTION("PostScript Generation")
     {
-        REQUIRE(layered1->generate().str().empty());
-        REQUIRE(layered2->generate().str() == "0 0 0.000000 0 360 arc stroke\n\n");
-        REQUIRE(layered3->generate().str() == "0 0 10.000000 0 360 arc stroke\n\n");
-        REQUIRE(layered4->generate().str() == "0 0 10.000000 0 360 arc stroke\n\n0 0 15.000000 0 360 arc stroke\n\n");
+		REQUIRE(layered1->generate().str() == "");
+		REQUIRE(layered2->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+        );
+		REQUIRE(layered3->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+            + make_unique<Rectangle>(10, 25)->generate().str() + "\n"
+        );
     }
 }
 
+TEST_CASE("Horizontal Shape")
+{
+    vector<CompoundShape::Shape_ptr> v2;
+    v2.push_back(make_unique<Circle>(10));
+    vector<CompoundShape::Shape_ptr> v3;
+    v3.push_back(make_unique<Circle>(10));
+    v3.push_back(make_unique<Circle>(10));
+
+    auto horizontal1 = make_unique<HorizontalShapes>();
+    auto horizontal2 = make_unique<HorizontalShapes>(move(v2));
+    auto horizontal3 = make_unique<HorizontalShapes>(move(v3));
+
+	SECTION("Width")
+	{
+		REQUIRE(horizontal1->get_width() == 0);
+		REQUIRE(horizontal2->get_width() == 20);
+		REQUIRE(horizontal3->get_width() == 40);
+	}
+	SECTION("Height")
+	{
+		REQUIRE(horizontal1->get_height() == 0);
+		REQUIRE(horizontal2->get_height() == 20);
+		REQUIRE(horizontal3->get_height() == 20);
+	}
+	SECTION("PostScript Generation")
+	{
+		REQUIRE(horizontal1->generate().str() == "");
+		REQUIRE(horizontal2->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+        );
+		REQUIRE(horizontal3->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+            + "0 20.000000 translate\n"
+            + make_unique<Circle>(10)->generate().str() + "\n"
+        );
+	}
+}
 
 TEST_CASE("Rectangle")
 {

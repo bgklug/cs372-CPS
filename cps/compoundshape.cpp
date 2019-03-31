@@ -17,19 +17,20 @@ void CompoundShape::pushShape(Shape_ptr shape)
 {
 	_shapes.push_back(move(shape));
 }
-auto CompoundShape::begin()
+
+CompoundShape::iterator CompoundShape::begin()
 {
 	return _shapes.begin();
 }
-auto CompoundShape::end()
+CompoundShape::iterator CompoundShape::end()
 {
 	return _shapes.end();
 }
-auto CompoundShape::begin() const
+CompoundShape::const_iterator CompoundShape::begin() const
 {
 	return _shapes.begin();
 }
-auto CompoundShape::end() const
+CompoundShape::const_iterator CompoundShape::end() const
 {
 	return _shapes.end();
 }
@@ -65,12 +66,10 @@ double LayeredShapes::get_width() const
 stringstream LayeredShapes::generate()
 {
 	stringstream postScriptFragment;
-
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
 		postScriptFragment << (*shape)->generate().str() << "\n";
 	}
-
 	return postScriptFragment;
 }
 
@@ -96,4 +95,43 @@ std::stringstream Rotated::generate()
                               + std::to_string(_rotation) + " rotate\n"
                               + _originalShape->generate().str()
                               + "grestore\n");
+}
+
+
+HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
+	: CompoundShape(move(shapes))
+{}
+
+double HorizontalShapes::get_height() const
+{
+	auto maxHeight{0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		if ((*shape)->get_height() > maxHeight) {
+			maxHeight = (*shape)->get_height();
+		}
+	}
+	return maxHeight;
+}
+double HorizontalShapes::get_width() const
+{
+	auto totalWidth{0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		totalWidth += (*shape)->get_height();
+	}
+	return totalWidth;
+}
+
+std::stringstream HorizontalShapes::generate()
+{
+	stringstream postScriptFragment;
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		postScriptFragment << (*shape)->generate().str() << "\n";
+		if (shape + 1 != end()) {
+			postScriptFragment << "0 " << std::to_string((*shape)->get_width()) << " translate\n";
+		}
+	}
+	return postScriptFragment;
 }
