@@ -4,6 +4,8 @@
 
 #include "shape.h"
 #include <algorithm>
+#include <random>
+#include <functional>
 
 // Base Class
 double Shape::get_height() const
@@ -143,6 +145,7 @@ std::stringstream Skyline::generate()
         output << "0 " << -building.height << " rlineto" << std::endl;
     }
 
+    output << _buildings.front().spacing << " 0 rlineto" << std::endl;
     output << "stroke" << std::endl;
     output << "grestore" << std::endl;
     return output;
@@ -152,13 +155,19 @@ std::stringstream Skyline::generate()
 #pragma ide diagnostic ignored "cert-msc50-cpp"
 std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
 {
+    std::random_device rd;
+    std::mt19937 generator(rd());
+
+    std::uniform_real_distribution<> randomHeight(10,100);
+    std::uniform_real_distribution<> randomWidth(20,50);
+    std::uniform_real_distribution<> randomSpacing(5,20);
+
     std::vector<Building> outputVector(numOfBuildings);
     for (auto & building : outputVector)
     {
-        //I don't want true random numbers, pseudo-random will do
-        building.height = std::rand() % 100 + 10;
-        building.width  = std::rand() % 30 + 20;
-        building.spacing = std::rand() % 20 + 5;
+        building.height = randomHeight(generator);
+        building.width  = randomWidth(generator);
+        building.spacing = randomSpacing(generator);
     }
 
     return outputVector;

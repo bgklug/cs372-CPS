@@ -240,13 +240,12 @@ TEST_CASE("Rotated Shapes")
 
 TEST_CASE("Skyline")
 {
-    Skyline sk1(4);
+    Skyline sk1(5);
 
     SECTION("Getters Do Not Break")
     {
         REQUIRE(sk1.get_width());
         REQUIRE(sk1.get_height());
     }
-
-    REQUIRE(sk1.generate().str() == "");
+    //No further tests as results are random
 }
