@@ -134,7 +134,7 @@ std::stringstream Skyline::generate()
 {
     std::stringstream output;
     output << "gsave" << std::endl;
-    output << (-(get_width()/2)) << " " << (-(get_height()/2)) << " rmoveto" << std::endl;
+    output << (-(get_width()/2)) << " " << (-(get_height()/2)) << " moveto" << std::endl;
     for (auto building : _buildings)
     {
         output << building.spacing << " 0 rlineto" << std::endl;
