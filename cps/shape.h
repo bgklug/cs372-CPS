@@ -7,6 +7,7 @@
 
 #include <sstream>
 #include <cmath>
+#include <vector>
 
 
 class Shape
@@ -60,6 +61,25 @@ private:
     const double pi =  std::acos(-1);
     float _numSides{0};
     float _sideLength{0};
+};
+
+class Skyline : public Shape
+{
+public:
+    explicit Skyline(int);
+
+    std::stringstream generate() override;
+private:
+    struct Building
+    {
+        double spacing;
+        double height;
+        double width;
+    };
+
+    std::vector<Building> generateBuildings(int);
+
+    std::vector<Building> _buildings;
 };
 
 

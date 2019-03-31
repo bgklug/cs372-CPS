@@ -3,6 +3,7 @@
 //
 
 #include "shape.h"
+#include <algorithm>
 
 // Base Class
 double Shape::get_height() const
@@ -106,3 +107,60 @@ std::stringstream Polygon::generate()
 
     return output;
 }
+
+Skyline::Skyline(int numOfBuildings)
+    : _buildings{generateBuildings(numOfBuildings)}
+{
+    double maxWidth = 0.0;
+    for (const auto & building : _buildings)
+    {
+       maxWidth += building.width;
+    }
+
+    double maxHeight = 0.0;
+    if(!_buildings.empty())
+    {
+       maxHeight = std::max_element(
+                _buildings.begin(),
+                _buildings.end(),
+                [](auto a, auto b){return a.height < b.height;})->height;
+    }
+
+    set_width(maxWidth);
+    set_height(maxHeight);
+}
+
+std::stringstream Skyline::generate()
+{
+    std::stringstream output;
+    output << "gsave" << std::endl;
+    output << (-(get_width()/2)) << " " << (-(get_height()/2)) << " rmoveto" << std::endl;
+    for (auto building : _buildings)
+    {
+        output << building.spacing << " 0 rlineto" << std::endl;
+        output << "0 " <<  building.height << " rlineto" << std::endl;
+        output << building.width << " 0 rlineto" << std::endl;
+        output << "0 " << -building.height << " rlineto" << std::endl;
+    }
+
+    output << "stroke" << std::endl;
+    output << "grestore" << std::endl;
+    return output;
+}
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-msc50-cpp"
+std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
+{
+    std::vector<Building> outputVector(numOfBuildings);
+    for (auto & building : outputVector)
+    {
+        //I don't want true random numbers, pseudo-random will do
+        building.height = std::rand() % 100 + 10;
+        building.width  = std::rand() % 30 + 20;
+        building.spacing = std::rand() % 20 + 5;
+    }
+
+    return outputVector;
+}
+#pragma clang diagnostic pop

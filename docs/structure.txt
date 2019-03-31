@@ -6,6 +6,7 @@ Shape
  |- Polygon
  |- Triangle
  |- Square
+ |- Skyline
  |- CompoundShape
      |- ScaleShape
      |- RotateShape

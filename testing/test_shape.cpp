@@ -237,3 +237,16 @@ TEST_CASE("Rotated Shapes")
 //        REQUIRE(rot3.generate().str() == "");
     }
 }
+
+TEST_CASE("Skyline")
+{
+    Skyline sk1(4);
+
+    SECTION("Getters Do Not Break")
+    {
+        REQUIRE(sk1.get_width());
+        REQUIRE(sk1.get_height());
+    }
+
+    REQUIRE(sk1.generate().str() == "");
+}
