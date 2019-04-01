@@ -173,3 +173,17 @@ std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
     return outputVector;
 }
 #pragma clang diagnostic pop
+
+Spacer::Spacer(double width, double height)
+{
+    set_width(width);
+    set_height(height);
+}
+
+std::stringstream Spacer::generate()
+{
+    return std::stringstream(
+        std::to_string(get_width())+" "+
+        std::to_string(get_height())+" translate\n"
+    );
+}

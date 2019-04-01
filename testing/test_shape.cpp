@@ -51,18 +51,18 @@ TEST_CASE("Circle")
     }
 }
 
-TEST_CASE("Polygon","[polygon]")
+TEST_CASE("Polygon", "[polygon]")
 {
     SECTION("Triangle")
     {
-        Polygon t(3,100);
+        Polygon t(3, 100);
         REQUIRE(t.get_width() == 100);
     }
     SECTION("Draw triangle")
     {
         Polygon t(3, 100);
 
-        REQUIRE( t.generate().str() == "%!\n" \
+        REQUIRE(t.generate().str() == "%!\n" \
             "newpath\n" \
             "/length 100.000000 def\n" \
             "/nSides 3.000000 def\n" \
@@ -203,9 +203,9 @@ TEST_CASE("Vertical Shape")
 TEST_CASE("Rectangle")
 {
     Rectangle r1;
-    Rectangle r2(1,5);
-    Rectangle r3(10,20.1);
-    Rectangle r4(10000,400000);
+    Rectangle r2(1, 5);
+    Rectangle r3(10, 20.1);
+    Rectangle r4(10000, 400000);
 
     SECTION("Getters")
     {
@@ -251,6 +251,22 @@ TEST_CASE("Rectangle")
                                        "closepath\n"
                                        "stroke\n");
 
+    }
+}
+
+TEST_CASE("Spacer")
+{
+    Spacer s1(40, 20);
+
+    SECTION("Width and Height Correct")
+    {
+        REQUIRE(s1.get_width() == 40);
+        REQUIRE(s1.get_height() == 20);
+    }
+
+    SECTION("PostScript Generation")
+    {
+        REQUIRE(s1.generate().str() == "40.000000 20.000000 translate\n");
     }
 }
 
