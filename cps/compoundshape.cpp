@@ -11,10 +11,27 @@ using std::stringstream;
 using std::move;
 using std::to_string;
 
+//CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
+//        : _shapes(move(shapes))
+//{}
+//CompoundShape::CompoundShape(const std::shared_ptr<CompoundShape> &shapes)
+//{
+//    for (auto shape = shapes->begin(); shape < shapes->end(); shape++)
+//    {
+//       _shapes.push_back(move(*shape));
+//    }
+//}
+
+void CompoundShape::setShapes(std::vector<Shape_ptr> shapes)
+{
+    _shapes = move(shapes);
+}
+
 void CompoundShape::pushShape(Shape_ptr shape)
 {
 	_shapes.push_back(move(shape));
 }
+
 size_t CompoundShape::get_numShapes() const {
 	return _shapes.size();
 }
@@ -36,23 +53,13 @@ CompoundShape::const_iterator CompoundShape::end() const
 	return _shapes.end();
 }
 
-void CompoundShape::setShapes(std::vector<Shape_ptr> shapes)
-{
-    _shapes = std::move(shapes);
-}
-
-//CompoundShape::CompoundShape(std::shared_ptr<CompoundShape> shape)
-//{
-//    for (auto singleShape = shape->begin(); singleShape < shape->end(); singleShape++)
-//    {
-//        _shapes.push_back(std::move(*singleShape));
-//    }
-//}
-
 LayeredShapes::LayeredShapes(vector<Shape_ptr> shapes)
 {
-    setShapes(std::move(shapes));
+    setShapes(move(shapes));
+}
 
+double LayeredShapes::get_height() const
+{
     auto maxHeight{0.0};
     for (auto shape = begin(); shape != end(); ++shape)
     {
@@ -60,7 +67,7 @@ LayeredShapes::LayeredShapes(vector<Shape_ptr> shapes)
             maxHeight = (*shape)->get_height();
         }
     }
-    set_height(maxHeight);
+    return maxHeight;
 }
 
 double LayeredShapes::get_width() const
@@ -87,14 +94,7 @@ stringstream LayeredShapes::generate()
 
 HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
 {
-    setShapes(std::move(shapes));
-
-    auto totalWidth{0.0};
-    for (auto shape = begin(); shape != end(); ++shape)
-    {
-        totalWidth += (*shape)->get_width();
-    }
-    set_width(totalWidth);
+    setShapes(move(shapes));
 }
 
 double HorizontalShapes::get_height() const
@@ -107,6 +107,16 @@ double HorizontalShapes::get_height() const
 		}
 	}
 	return maxHeight;
+}
+
+double HorizontalShapes::get_width() const
+{
+    auto totalWidth{0.0};
+    for (auto shape = begin(); shape != end(); ++shape)
+    {
+        totalWidth += (*shape)->get_width();
+    }
+    return totalWidth;
 }
 
 std::stringstream HorizontalShapes::generate()
@@ -135,7 +145,20 @@ std::stringstream HorizontalShapes::generate()
 VerticalShapes::VerticalShapes(vector<Shape_ptr> shapes)
 {
     setShapes(move(shapes));
+}
 
+double VerticalShapes::get_height() const
+{
+    auto totalHeight{0.0};
+    for (auto shape = begin(); shape != end(); ++shape)
+    {
+        totalHeight += (*shape)->get_width();
+    }
+    return totalHeight;
+}
+
+double VerticalShapes::get_width() const
+{
     auto maxWidth{0.0};
     for (auto shape = begin(); shape != end(); ++shape)
     {
@@ -143,17 +166,7 @@ VerticalShapes::VerticalShapes(vector<Shape_ptr> shapes)
             maxWidth = (*shape)->get_width();
         }
     }
-    set_width(maxWidth);
-}
-
-double VerticalShapes::get_height() const
-{
-	auto totalHeight{0.0};
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-		totalHeight += (*shape)->get_width();
-	}
-	return totalHeight;
+    return maxWidth;
 }
 
 stringstream VerticalShapes::generate()
@@ -177,8 +190,6 @@ stringstream VerticalShapes::generate()
 		postScriptFragment << "0 " << to_string(-relativeCurrentPoint) << " translate\n";
 	}
 	return postScriptFragment;
-}
-
 }
 
 Scaled::Scaled(const std::shared_ptr<CompoundShape>& shape, double scaleFactorX, double scaleFactorY)
@@ -205,3 +216,7 @@ std::stringstream Scaled::generate()
 
     return output;
 }
+
+}
+
+

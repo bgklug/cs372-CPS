@@ -39,33 +39,9 @@ void Shape::set_width(double width)
 // Circle Class
 Circle::Circle(double radius)
 {
-//    setRadius(radius);
     set_height(2*radius);
     set_width(2*radius);
 }
-
-//double Circle::get_height() const
-//{
-//    return _radius * 2;
-//}
-//double Circle::get_width() const
-//{
-//    return _radius * 2;
-//}
-//
-//void Circle::set_height(double height)
-//{
-//    setRadius(height / 2);
-//}
-//void Circle::set_width(double width)
-//{
-//    setRadius(width / 2);
-//}
-//
-//void Circle::setRadius(double radius)
-//{
-//    _radius = radius;
-//}
 
 std::stringstream Circle::generate()
 {

@@ -33,7 +33,7 @@ class LayeredShapes: public CompoundShape {
 public:
 	explicit LayeredShapes(std::vector<Shape_ptr> shapes = {});
 
-//	double get_height() const override;
+	double get_height() const override;
 	double get_width() const override;
 
 	std::stringstream generate() override;
@@ -45,7 +45,7 @@ public:
 	explicit HorizontalShapes(std::vector<Shape_ptr> shapes = {});
 
 	double get_height() const override;
-//	double get_width() const override;
+	double get_width() const override;
 
 	std::stringstream generate() override;
 private:
@@ -57,14 +57,12 @@ public:
 	explicit VerticalShapes(std::vector<Shape_ptr> shapes = {});
 
 	double get_height() const override;
-//	double get_width() const override;
+	double get_width() const override;
 
 	std::stringstream generate() override;
 private:
 
 };
-
-}
 
 class Scaled : public cps::CompoundShape
 {
@@ -77,5 +75,9 @@ private:
     double _scaleFactorX;
     double _scaleFactorY;
 };
+
+}
+
+
 
 #endif //CS372_CPS_COMPOUNDSHAPE_H
