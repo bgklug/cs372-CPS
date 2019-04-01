@@ -11,17 +11,6 @@ using std::stringstream;
 using std::move;
 using std::to_string;
 
-//CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
-//        : _shapes(move(shapes))
-//{}
-//CompoundShape::CompoundShape(const std::shared_ptr<CompoundShape> &shapes)
-//{
-//    for (auto shape = shapes->begin(); shape < shapes->end(); shape++)
-//    {
-//       _shapes.push_back(move(*shape));
-//    }
-//}
-
 void CompoundShape::setShapes(std::vector<Shape_ptr> shapes)
 {
     _shapes = move(shapes);
