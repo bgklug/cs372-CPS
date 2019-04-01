@@ -23,10 +23,10 @@ public:
 
 	virtual ~CompoundShape()=default;
 
-	virtual double get_height() const=0;
-	virtual double get_width() const=0;
-	void set_height(double height)=delete;
-	void set_width(double width)=delete;
+	virtual double get_height() const override=0;
+	virtual double get_width() const override=0;
+	void set_height(double height) override {};
+	void set_width(double width) override {};
 
 	void pushShape(Shape_ptr shape);
 	size_t get_numShapes() const;
@@ -57,7 +57,7 @@ public:
 	double get_height() const override;
 	double get_width() const override;
 
-	std::stringstream generate();
+	std::stringstream generate() override;
 private:
 
 };
@@ -69,7 +69,7 @@ public:
 	double get_height() const override;
 	double get_width() const override;
 
-	std::stringstream generate();
+	std::stringstream generate() override;
 private:
 
 };
