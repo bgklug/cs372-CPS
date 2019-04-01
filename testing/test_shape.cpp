@@ -89,9 +89,7 @@ TEST_CASE("Triangle","[triangle]")
     {
         Triangle t(100);
 
-        REQUIRE( t.generate().str() == "%!\n" \
-            "newpath\n" \
-            "/length 100.000000 def\n" \
+        REQUIRE( t.generate().str() == "/length 100.000000 def\n" \
             "/nSides 3.000000 def\n" \
             "/angle { 360 nSides div } def\n" \
             "gsave\n" \
@@ -104,8 +102,7 @@ TEST_CASE("Triangle","[triangle]")
             "} for\n" \
             "closepath\n" \
             "stroke\n" \
-            "grestore\n" \
-            "showpage\n");
+            "grestore\n");
 
     }
 }
@@ -121,9 +118,7 @@ TEST_CASE("Square","[square]")
     {
         Square s(100);
 
-        REQUIRE( s.generate().str() == "%!\n" \
-            "newpath\n" \
-            "/length 100.000000 def\n" \
+        REQUIRE( s.generate().str() == "/length 100.000000 def\n" \
             "/nSides 4.000000 def\n" \
             "/angle { 360 nSides div } def\n" \
             "gsave\n" \
@@ -136,8 +131,7 @@ TEST_CASE("Square","[square]")
             "} for\n" \
             "closepath\n" \
             "stroke\n" \
-            "grestore\n" \
-            "showpage\n");
+            "grestore\n");
 
     }
 }
