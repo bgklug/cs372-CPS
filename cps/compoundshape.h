@@ -60,6 +60,18 @@ private:
 
 };
 
+class VerticalShapes: public CompoundShape {
+public:
+	explicit VerticalShapes(std::vector<Shape_ptr> shapes = {});
+
+	double get_height() const override;
+	double get_width() const override;
+
+	std::stringstream generate();
+private:
+
+};
+
 class Rotated : public Shape
 {
 public:
