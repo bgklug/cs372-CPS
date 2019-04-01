@@ -40,17 +40,17 @@ public:
     Circle() = default;
     explicit Circle(double);
 
-    double get_height() const override;
-    double get_width() const override;
-
-    void set_height(double height) override;
-    void set_width(double width) override;
+//    double get_height() const override;
+//    double get_width() const override;
+//
+//    void set_height(double height) override;
+//    void set_width(double width) override;
 
     std::stringstream generate() override;
 private:
     void setRadius(double);
-
-    double _radius{ 0.0 };
+//
+//    double _radius{ 0.0 };
 };
 
 class Rectangle : public Shape

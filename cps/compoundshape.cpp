@@ -133,8 +133,18 @@ std::stringstream HorizontalShapes::generate()
 }
 
 VerticalShapes::VerticalShapes(vector<Shape_ptr> shapes)
-	: CompoundShape(move(shapes))
-{}
+{
+    setShapes(move(shapes));
+
+    auto maxWidth{0.0};
+    for (auto shape = begin(); shape != end(); ++shape)
+    {
+        if ((*shape)->get_width() > maxWidth) {
+            maxWidth = (*shape)->get_width();
+        }
+    }
+    set_width(maxWidth);
+}
 
 double VerticalShapes::get_height() const
 {
@@ -144,17 +154,6 @@ double VerticalShapes::get_height() const
 		totalHeight += (*shape)->get_width();
 	}
 	return totalHeight;
-}
-double VerticalShapes::get_width() const
-{
-	auto maxWidth{0.0};
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-		if ((*shape)->get_width() > maxWidth) {
-			maxWidth = (*shape)->get_width();
-		}
-	}
-	return maxWidth;
 }
 
 stringstream VerticalShapes::generate()

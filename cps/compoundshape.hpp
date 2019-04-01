@@ -66,7 +66,7 @@ private:
 
 }
 
-class Scaled : public CompoundShape
+class Scaled : public cps::CompoundShape
 {
 public:
     Scaled(const std::shared_ptr<CompoundShape> & shape, double scaleFactorX, double scaleFactorY);
