@@ -19,8 +19,8 @@ public:
     virtual double get_height() const;
     virtual double get_width() const;
 
-    void set_height(double height);
-    void set_width(double width);
+    virtual void set_height(double height);
+    virtual void set_width(double width);
 
     virtual std::stringstream generate()=0;
 private:
@@ -35,9 +35,17 @@ public:
     Circle() = default;
     explicit Circle(double);
 
+    double get_height() const override;
+    double get_width() const override;
+
+    void set_height(double height) override;
+    void set_width(double width) override;
+
     std::stringstream generate() override;
 private:
     void setRadius(double);
+
+    double _radius{ 0.0 };
 };
 
 class Rectangle : public Shape
