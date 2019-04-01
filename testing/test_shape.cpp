@@ -51,7 +51,7 @@ TEST_CASE("Circle")
 
 TEST_CASE("Polygon", "[polygon]")
 {
-    SECTION("Triangle")
+    SECTION("Triangle width")
     {
         Polygon t(3, 100);
         REQUIRE(t.get_width() == 100);
@@ -60,9 +60,7 @@ TEST_CASE("Polygon", "[polygon]")
     {
         Polygon t(3, 100);
 
-        REQUIRE(t.generate().str() == "%!\n" \
-            "newpath\n" \
-            "/length 100.000000 def\n" \
+        REQUIRE(t.generate().str() == "/length 100.000000 def\n" \
             "/nSides 3.000000 def\n" \
             "/angle { 360 nSides div } def\n" \
             "gsave\n" \
@@ -75,8 +73,65 @@ TEST_CASE("Polygon", "[polygon]")
             "} for\n" \
             "closepath\n" \
             "stroke\n" \
-            "grestore\n" \
-            "showpage\n");
+            "grestore\n");
+
+    }
+}
+
+TEST_CASE("Triangle","[triangle]")
+{
+    SECTION("Triangle width")
+    {
+        Triangle t(100);
+        REQUIRE(t.get_width() == 100);
+    }
+    SECTION("Draw triangle")
+    {
+        Triangle t(100);
+
+        REQUIRE( t.generate().str() == "/length 100.000000 def\n" \
+            "/nSides 3.000000 def\n" \
+            "/angle { 360 nSides div } def\n" \
+            "gsave\n" \
+            "newpath\n" \
+            "0 0 moveto\n" \
+            "0 angle 360 {\n" \
+            "length 0 lineto\n" \
+            "length 0 translate\n" \
+            "angle rotate\n" \
+            "} for\n" \
+            "closepath\n" \
+            "stroke\n" \
+            "grestore\n");
+
+    }
+}
+
+TEST_CASE("Square","[square]")
+{
+    SECTION("Square width")
+    {
+        Square s(100);
+        REQUIRE(s.get_width() == 100.0);
+    }
+    SECTION("Draw square")
+    {
+        Square s(100);
+
+        REQUIRE( s.generate().str() == "/length 100.000000 def\n" \
+            "/nSides 4.000000 def\n" \
+            "/angle { 360 nSides div } def\n" \
+            "gsave\n" \
+            "newpath\n" \
+            "0 0 moveto\n" \
+            "0 angle 360 {\n" \
+            "length 0 lineto\n" \
+            "length 0 translate\n" \
+            "angle rotate\n" \
+            "} for\n" \
+            "closepath\n" \
+            "stroke\n" \
+            "grestore\n");
 
     }
 }
