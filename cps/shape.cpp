@@ -194,25 +194,3 @@ std::stringstream Spacer::generate()
     );
 }
 
-Scaled::Scaled(std::unique_ptr<Shape> shape, double scaleFactorX, double scaleFactorY)
-    : _scaleFactorX{scaleFactorX}, _scaleFactorY{scaleFactorY}
-{
-    set_width(shape->get_width()*scaleFactorX);
-    set_height(shape->get_height()*scaleFactorY);
-
-    _originalShape = std::move(shape);
-}
-
-std::stringstream Scaled::generate()
-{
-    std::unique_ptr<Shape> scaledShape = std::move(_originalShape);
-    scaledShape->set_height(get_height());
-    scaledShape->set_width(get_width());
-
-    std::stringstream output;
-    output << "gsave" << std::endl;
-    output << scaledShape->generate().str();
-    output << "grestore" << std::endl;
-
-    return output;
-}
