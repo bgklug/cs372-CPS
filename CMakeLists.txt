@@ -10,4 +10,22 @@ elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
 endif()
 
 include_directories("../CPS")
-add_executable(test_cps ./testing/main_test.cpp ./testing/test_shape.cpp cps/compoundshape.cpp cps/compoundshape.hpp cps/shape.cpp cps/shape.hpp)
+
+set(CPS
+    ./cps/shape.cpp
+    ./cps/shape.hpp
+    ./cps/compoundshape.cpp
+    ./cps/compoundshape.hpp)
+
+set(TEST
+    ./testing/main_test.cpp
+    ./testing/test_shape.cpp
+    ${CPS})
+
+set(EXAMPLE
+    ./docs/examples/example.cpp
+    ${CPS})
+
+add_executable(test_cps ${TEST})
+
+add_executable(example_cps ${EXAMPLE})
