@@ -118,7 +118,9 @@ Skyline::Skyline(int numOfBuildings)
     for (const auto & building : _buildings)
     {
        maxWidth += building.width;
+       maxWidth += building.spacing;
     }
+    maxWidth += _buildings.front().spacing;
 
     double maxHeight = 0.0;
     if(!_buildings.empty())
