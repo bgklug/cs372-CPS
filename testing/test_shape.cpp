@@ -194,7 +194,7 @@ TEST_CASE("Spacer")
 
     SECTION("PostScript Generation")
     {
-
+        REQUIRE(s1.generate().str() == "40.000000 20.000000 translate\n");
     }
 }
 
