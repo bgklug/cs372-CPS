@@ -23,8 +23,8 @@ public:
 
 	virtual double get_height() const override=0;
 	virtual double get_width() const override=0;
-	void set_height(double height) override {};
-	void set_width(double width) override {};
+	void set_height(double) override {};
+	void set_width(double) override {};
 
 	void pushShape(Shape_ptr shape);
 	size_t get_numShapes() const;
