@@ -253,7 +253,7 @@ TEST_CASE("Rectangle")
                                        "closepath\n"
                                        "0 0 moveto\n"
                                        "stroke\n");
-        );
+
 
     }
 }
@@ -313,6 +313,7 @@ TEST_CASE("Rotated Shapes")
                                          "0 40.000000 rlineto\n"
                                          "-80.000000 0 rlineto\n"
                                          "closepath\n"
+                                         "0 0 moveto\n"
                                          "stroke\n"
                                          "grestore\n");
 
@@ -326,6 +327,7 @@ TEST_CASE("Rotated Shapes")
                                          "0 40.000000 rlineto\n"
                                          "-80.000000 0 rlineto\n"
                                          "closepath\n"
+                                         "0 0 moveto\n"
                                          "stroke\n"
                                          "\n"
                                          "grestore\n");
@@ -342,6 +344,7 @@ TEST_CASE("Rotated Shapes")
                                          "0 40.000000 rlineto\n"
                                          "-80.000000 0 rlineto\n"
                                          "closepath\n"
+                                         "0 0 moveto\n"
                                          "stroke\n"
                                          "\n"
                                          "grestore\n");
