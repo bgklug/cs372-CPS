@@ -107,10 +107,16 @@ std::stringstream Polygon::generate()
     return output;
 }
 
-Spacer::Spacer(double width, double height) : Rectangle(width, height)
-{}
+Spacer::Spacer(double width, double height)
+{
+    set_width(width);
+    set_height(height);
+}
 
 std::stringstream Spacer::generate()
 {
-    return std::stringstream();
+    return std::stringstream(
+        std::to_string(get_width())+" "+
+        std::to_string(get_height())+" translate\n"
+    );
 }

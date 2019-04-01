@@ -47,7 +47,7 @@ public:
 private:
 };
 
-class Spacer : public Rectangle
+class Spacer : public Shape
 {
 public:
     Spacer(double, double);
