@@ -1,3 +1,4 @@
+// shape.hpp
 //
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
@@ -7,20 +8,25 @@
 
 #include <sstream>
 #include <cmath>
+#include <vector>
+#include <memory>
 
+namespace cps {
 
 class Shape
 {
 public:
+	using Shape_ptr = std::unique_ptr<Shape>;
+
+    virtual ~Shape()=default;
+
     virtual double get_height() const;
     virtual double get_width() const;
 
+    virtual void set_height(double height);
+    virtual void set_width(double width);
+
     virtual std::stringstream generate()=0;
-
-protected:
-    void set_height(double height);
-    void set_width(double width);
-
 private:
     double _height { 0 };
     double _width { 0 };
@@ -33,9 +39,17 @@ public:
     Circle() = default;
     explicit Circle(double);
 
+    double get_height() const override;
+    double get_width() const override;
+
+    void set_height(double height) override;
+    void set_width(double width) override;
+
     std::stringstream generate() override;
 private:
     void setRadius(double);
+
+    double _radius{ 0.0 };
 };
 
 class Rectangle : public Shape
@@ -47,6 +61,13 @@ public:
 private:
 };
 
+class Spacer : public Shape
+{
+public:
+    Spacer(double, double);
+    std::stringstream generate() override;
+private:
+};
 
 class Polygon : public Shape
 {
@@ -54,7 +75,7 @@ public:
     ~Polygon() = default;
     Polygon(int, double);
 
-    std::stringstream generate();
+    std::stringstream generate() override;
 
 private:
     const double pi =  std::acos(-1);
@@ -75,5 +96,36 @@ public:
     Triangle(double sideLength):Polygon(3, sideLength) {};
     ~Triangle() = default;
 };
+
+class Skyline : public Shape
+{
+public:
+    explicit Skyline(int);
+
+    std::stringstream generate() override;
+private:
+    struct Building
+    {
+        double spacing;
+        double height;
+        double width;
+    };
+
+    std::vector<Building> generateBuildings(int);
+
+    std::vector<Building> _buildings;
+};
+
+class Rotated : public Shape
+{
+public:
+    Rotated(Shape_ptr, int);
+    std::stringstream generate() override;
+private:
+   Shape_ptr _originalShape;
+   int _rotation;
+};
+
+}
 
 #endif //CS372_CPS_SHAPE_H
