@@ -18,6 +18,9 @@ void CompoundShape::pushShape(Shape_ptr shape)
 {
 	_shapes.push_back(move(shape));
 }
+size_t CompoundShape::get_numShapes() const {
+	return _shapes.size();
+}
 
 CompoundShape::iterator CompoundShape::begin()
 {
@@ -102,16 +105,22 @@ double VerticalShapes::get_width() const
 stringstream VerticalShapes::generate()
 {
 	stringstream postScriptFragment;
+	auto relativeCurrentPoint{0.0};
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
 	    if (shape != begin())
         {
-            postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
+            relativeCurrentPoint += (*shape)->get_height()/2;
+			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
         }
-		postScriptFragment << (*shape)->generate().str() << "\n";
+		postScriptFragment << (*shape)->generate().str();
 		if (shape + 1 != end()) {
+			relativeCurrentPoint += (*shape)->get_height()/2;
 			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
 		}
+	}
+	if (get_numShapes() > 1) {
+		postScriptFragment << "0 " << to_string(-relativeCurrentPoint) << " translate\n";
 	}
 	return postScriptFragment;
 }
@@ -169,16 +178,22 @@ double HorizontalShapes::get_width() const
 std::stringstream HorizontalShapes::generate()
 {
 	stringstream postScriptFragment;
+	auto relativeCurrentPoint{0.0};
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
 	    if (shape != begin())
         {
-            postScriptFragment << std::to_string((*shape)->get_width()/2) << " " << "0 translate\n";
+            relativeCurrentPoint += (*shape)->get_width()/2;
+			postScriptFragment << std::to_string((*shape)->get_width()/2) << " " << "0 translate\n";
         }
-		postScriptFragment << (*shape)->generate().str() << "\n";
+		postScriptFragment << (*shape)->generate().str();
 		if (shape + 1 != end()) {
+            relativeCurrentPoint += (*shape)->get_width()/2;
 			postScriptFragment << std::to_string((*shape)->get_width()/2) << " " << "0 translate\n";
 		}
+	}
+	if (get_numShapes() > 1) {
+		postScriptFragment << to_string(-relativeCurrentPoint) << " 0 translate\n";
 	}
 	return postScriptFragment;
 }
