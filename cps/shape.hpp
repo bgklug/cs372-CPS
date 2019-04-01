@@ -1,3 +1,4 @@
+// shape.hpp
 //
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
@@ -10,21 +11,26 @@
 #include <vector>
 #include <memory>
 
+namespace cps {
+
 class Shape
 {
 public:
+	using Shape_ptr = std::unique_ptr<Shape>;
+
+    virtual ~Shape()=default;
+
     virtual double get_height() const;
     virtual double get_width() const;
 
-    virtual std::stringstream generate()=0;
+    virtual void set_height(double height);
+    virtual void set_width(double width);
 
-protected:
-    void set_height(double height);
-    void set_width(double width);
-    friend class Scaled; //This is excessive but I don't know what else to do
+    virtual std::stringstream generate()=0;
 private:
     double _height { 0 };
     double _width { 0 };
+    friend class Scaled; //This is excessive but I don't know what else to do
 };
 
 
@@ -34,9 +40,17 @@ public:
     Circle() = default;
     explicit Circle(double);
 
+    double get_height() const override;
+    double get_width() const override;
+
+    void set_height(double height) override;
+    void set_width(double width) override;
+
     std::stringstream generate() override;
 private:
     void setRadius(double);
+
+    double _radius{ 0.0 };
 };
 
 class Rectangle : public Shape
@@ -70,6 +84,20 @@ private:
     float _sideLength{0};
 };
 
+class Square : public Polygon
+{
+public:
+    Square(double sideLength):Polygon(4, sideLength) {};
+    ~Square() = default;
+};
+
+class Triangle : public Polygon
+{
+public:
+    Triangle(double sideLength):Polygon(3, sideLength) {};
+    ~Triangle() = default;
+};
+
 class Skyline : public Shape
 {
 public:
@@ -89,5 +117,16 @@ private:
     std::vector<Building> _buildings;
 };
 
+class Rotated : public Shape
+{
+public:
+    Rotated(Shape_ptr, int);
+    std::stringstream generate() override;
+private:
+   Shape_ptr _originalShape;
+   int _rotation;
+};
+
+}
 
 #endif //CS372_CPS_SHAPE_H

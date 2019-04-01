@@ -1,3 +1,4 @@
+// shape.cpp
 //
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
@@ -6,11 +7,13 @@ using std::stringstream;
 #include <cmath>
 using std::cos, std::sin;
 
-#include "shape.h"
-#include "compoundshape.h"
+#include "shape.hpp"
+
 #include <algorithm>
 #include <random>
 #include <functional>
+
+namespace cps {
 
 // Base Class
 double Shape::get_height() const
@@ -34,15 +37,32 @@ void Shape::set_width(double width)
 }
 
 // Circle Class
-void Circle::setRadius(double radius)
-{
-    set_height(radius*2);
-    set_width(radius*2);
-}
-
 Circle::Circle(double radius)
 {
     setRadius(radius);
+}
+
+double Circle::get_height() const
+{
+    return _radius * 2;
+}
+double Circle::get_width() const
+{
+    return _radius * 2;
+}
+
+void Circle::set_height(double height)
+{
+    setRadius(height / 2);
+}
+void Circle::set_width(double width)
+{
+    setRadius(width / 2);
+}
+
+void Circle::setRadius(double radius)
+{
+    _radius = radius;
 }
 
 std::stringstream Circle::generate()
@@ -69,6 +89,7 @@ Rectangle::Rectangle(double width, double height)
     set_width(width);
 }
 
+// Polygon Class
 Polygon::Polygon(int numSides, double sideLength)
 {
     _numSides = numSides;
@@ -91,12 +112,10 @@ Polygon::Polygon(int numSides, double sideLength)
     }
 }
 
-
 std::stringstream Polygon::generate()
 {
     std::stringstream output;
 
-    output << "%!\n" << "newpath\n";
     output << "/length " << std::to_string(_sideLength) << " def\n";
     output << "/nSides " << std::to_string(_numSides) << " def\n";
     output << "/angle { 360 nSides div } def\n";
@@ -111,7 +130,6 @@ std::stringstream Polygon::generate()
     output << "closepath\n";
     output << "stroke\n";
     output << "grestore\n";
-    output << "showpage\n";
 
     return output;
 }
@@ -194,3 +212,29 @@ std::stringstream Spacer::generate()
     );
 }
 
+
+Rotated::Rotated(Shape_ptr shape, int degrees) : _rotation{degrees}
+{
+    if(degrees == 90 || degrees == 270)
+    {
+        set_height(shape->get_width());
+        set_width(shape->get_height());
+    }
+    else
+    {
+        set_width(shape->get_width());
+        set_height(shape->get_height());
+    }
+
+    _originalShape = std::move(shape);
+}
+
+std::stringstream Rotated::generate()
+{
+    return std::stringstream ("gsave\n"
+                              + std::to_string(_rotation) + " rotate\n"
+                              + _originalShape->generate().str()
+                              + "grestore\n");
+}
+
+}

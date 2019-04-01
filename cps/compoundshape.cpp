@@ -2,8 +2,9 @@
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
 
-#include "compoundshape.h"
-#include "shape.h"
+#include "compoundshape.hpp"
+
+namespace cps {
 
 using std::vector;
 using std::stringstream;
@@ -84,78 +85,6 @@ stringstream LayeredShapes::generate()
 	return postScriptFragment;
 }
 
-VerticalShapes::VerticalShapes(vector<Shape_ptr> shapes)
-{
-    setShapes(std::move(shapes));
-
-    auto maxWidth{0.0};
-    for (auto shape = begin(); shape != end(); ++shape)
-    {
-        if ((*shape)->get_width() > maxWidth) {
-            maxWidth = (*shape)->get_width();
-        }
-    }
-    set_width(maxWidth);
-}
-
-double VerticalShapes::get_height() const
-{
-	auto totalHeight{0.0};
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-		totalHeight += (*shape)->get_width();
-	}
-	return totalHeight;
-}
-
-stringstream VerticalShapes::generate()
-{
-	stringstream postScriptFragment;
-	auto relativeCurrentPoint{0.0};
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-	    if (shape != begin())
-        {
-            relativeCurrentPoint += (*shape)->get_height()/2;
-			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
-        }
-		postScriptFragment << (*shape)->generate().str();
-		if (shape + 1 != end()) {
-			relativeCurrentPoint += (*shape)->get_height()/2;
-			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
-		}
-	}
-	if (get_numShapes() > 1) {
-		postScriptFragment << "0 " << to_string(-relativeCurrentPoint) << " translate\n";
-	}
-	return postScriptFragment;
-}
-
-Rotated::Rotated(std::unique_ptr<Shape> shape, int degrees) : _rotation{degrees}
-{
-    if(degrees == 90 || degrees == 270)
-    {
-        set_height(shape->get_width());
-        set_width(shape->get_height());
-    }
-    else
-    {
-        set_width(shape->get_width());
-        set_height(shape->get_height());
-    }
-
-    _originalShape = std::move(shape);
-}
-
-std::stringstream Rotated::generate()
-{
-    return std::stringstream ("gsave\n"
-                              + std::to_string(_rotation) + " rotate\n"
-                              + _originalShape->generate().str()
-                              + "grestore\n");
-}
-
-
 HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
 {
     setShapes(std::move(shapes));
@@ -201,6 +130,56 @@ std::stringstream HorizontalShapes::generate()
 		postScriptFragment << to_string(-relativeCurrentPoint) << " 0 translate\n";
 	}
 	return postScriptFragment;
+}
+
+VerticalShapes::VerticalShapes(vector<Shape_ptr> shapes)
+	: CompoundShape(move(shapes))
+{}
+
+double VerticalShapes::get_height() const
+{
+	auto totalHeight{0.0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		totalHeight += (*shape)->get_width();
+	}
+	return totalHeight;
+}
+double VerticalShapes::get_width() const
+{
+	auto maxWidth{0.0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		if ((*shape)->get_width() > maxWidth) {
+			maxWidth = (*shape)->get_width();
+		}
+	}
+	return maxWidth;
+}
+
+stringstream VerticalShapes::generate()
+{
+	stringstream postScriptFragment;
+	auto relativeCurrentPoint{0.0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+	    if (shape != begin())
+        {
+            relativeCurrentPoint += (*shape)->get_height()/2;
+			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
+        }
+		postScriptFragment << (*shape)->generate().str();
+		if (shape + 1 != end()) {
+			relativeCurrentPoint += (*shape)->get_height()/2;
+			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
+		}
+	}
+	if (get_numShapes() > 1) {
+		postScriptFragment << "0 " << to_string(-relativeCurrentPoint) << " translate\n";
+	}
+	return postScriptFragment;
+}
+
 }
 
 Scaled::Scaled(const std::shared_ptr<CompoundShape>& shape, double scaleFactorX, double scaleFactorY)

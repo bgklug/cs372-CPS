@@ -1,3 +1,4 @@
+// compoundshape.hpp
 //
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
@@ -5,15 +6,14 @@
 #ifndef CS372_CPS_COMPOUNDSHAPE_H
 #define CS372_CPS_COMPOUNDSHAPE_H
 
-#include <memory>
-#include <sstream>
 #include <vector>
 
-#include "shape.h"
+#include "shape.hpp"
+
+namespace cps {
 
 class CompoundShape: public Shape {
 public:
-	using Shape_ptr = std::unique_ptr<Shape>;
 	using iterator = std::vector<Shape_ptr>::iterator;
 	using const_iterator = std::vector<Shape_ptr>::const_iterator;
 
@@ -64,15 +64,7 @@ private:
 
 };
 
-class Rotated : public Shape
-{
-public:
-    Rotated(std::unique_ptr<Shape>, int);
-    std::stringstream generate() override;
-private:
-   std::unique_ptr<Shape> _originalShape;
-   int _rotation;
-};
+}
 
 class Scaled : public CompoundShape
 {
