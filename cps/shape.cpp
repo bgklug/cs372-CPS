@@ -1,13 +1,15 @@
 //
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
-#include "compoundshape.h"
 #include <sstream>
 using std::stringstream;
 #include <cmath>
 using std::cos, std::sin;
 
 #include "shape.h"
+#include <algorithm>
+#include <random>
+#include <functional>
 
 // Base Class
 double Shape::get_height() const
@@ -88,9 +90,9 @@ Polygon::Polygon(int numSides, double sideLength)
 }
 
 
-stringstream Polygon::generate()
+std::stringstream Polygon::generate()
 {
-    stringstream output;
+    std::stringstream output;
 
     output << "%!\n" << "newpath\n";
     output << "/length " << std::to_string(_sideLength) << " def\n";
@@ -133,4 +135,81 @@ std::stringstream Scaled::generate()
     output << "grestore" << std::endl;
 
     return output;
+}
+Skyline::Skyline(int numOfBuildings)
+    : _buildings{generateBuildings(numOfBuildings)}
+{
+    double maxWidth = 0.0;
+    for (const auto & building : _buildings)
+    {
+       maxWidth += building.width;
+    }
+
+    double maxHeight = 0.0;
+    if(!_buildings.empty())
+    {
+       maxHeight = std::max_element(
+                _buildings.begin(),
+                _buildings.end(),
+                [](auto a, auto b){return a.height < b.height;})->height;
+    }
+
+    set_width(maxWidth);
+    set_height(maxHeight);
+}
+
+std::stringstream Skyline::generate()
+{
+    std::stringstream output;
+    output << "gsave" << std::endl;
+    output << (-(get_width()/2)) << " " << (-(get_height()/2)) << " moveto" << std::endl;
+    for (auto building : _buildings)
+    {
+        output << building.spacing << " 0 rlineto" << std::endl;
+        output << "0 " <<  building.height << " rlineto" << std::endl;
+        output << building.width << " 0 rlineto" << std::endl;
+        output << "0 " << -building.height << " rlineto" << std::endl;
+    }
+
+    output << _buildings.front().spacing << " 0 rlineto" << std::endl;
+    output << "stroke" << std::endl;
+    output << "grestore" << std::endl;
+    return output;
+}
+
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "cert-msc50-cpp"
+std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
+{
+    std::random_device rd;
+    std::mt19937 generator(rd());
+
+    std::uniform_real_distribution<> randomHeight(10,100);
+    std::uniform_real_distribution<> randomWidth(20,50);
+    std::uniform_real_distribution<> randomSpacing(5,20);
+
+    std::vector<Building> outputVector(numOfBuildings);
+    for (auto & building : outputVector)
+    {
+        building.height = randomHeight(generator);
+        building.width  = randomWidth(generator);
+        building.spacing = randomSpacing(generator);
+    }
+
+    return outputVector;
+}
+#pragma clang diagnostic pop
+
+Spacer::Spacer(double width, double height)
+{
+    set_width(width);
+    set_height(height);
+}
+
+std::stringstream Spacer::generate()
+{
+    return std::stringstream(
+        std::to_string(get_width())+" "+
+        std::to_string(get_height())+" translate\n"
+    );
 }
