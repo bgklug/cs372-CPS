@@ -103,9 +103,13 @@ stringstream VerticalShapes::generate()
 	stringstream postScriptFragment;
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
+	    if (shape != begin())
+        {
+            postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
+        }
 		postScriptFragment << (*shape)->generate().str() << "\n";
 		if (shape + 1 != end()) {
-			postScriptFragment << to_string((*shape)->get_height()) << " 0 translate\n";
+			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
 		}
 	}
 	return postScriptFragment;

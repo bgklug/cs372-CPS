@@ -193,7 +193,8 @@ TEST_CASE("Vertical Shape")
         );
 		REQUIRE(vertical3->generate().str() ==
             make_unique<Circle>(10)->generate().str() + "\n"
-            + "20.000000 0 translate\n"
+            + "0 10.000000 translate\n"
+            + "0 10.000000 translate\n"
             + make_unique<Circle>(10)->generate().str() + "\n"
         );
 	}
