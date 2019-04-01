@@ -361,7 +361,5 @@ TEST_CASE("Skyline")
         REQUIRE(sk1.get_width());
         REQUIRE(sk1.get_height());
     }
-
-    REQUIRE(sk1.generate().str() == "");
     //No further tests as results are random
 }
