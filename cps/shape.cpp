@@ -152,8 +152,6 @@ std::stringstream Skyline::generate()
     return output;
 }
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-msc50-cpp"
 std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
 {
     std::random_device rd;
@@ -173,7 +171,6 @@ std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
 
     return outputVector;
 }
-#pragma clang diagnostic pop
 
 Spacer::Spacer(double width, double height)
 {
