@@ -10,7 +10,6 @@
 #include <vector>
 #include <memory>
 
-
 class Shape
 {
 public:
@@ -22,7 +21,7 @@ public:
 protected:
     void set_height(double height);
     void set_width(double width);
-
+    friend class Scaled; //This is excessive but I don't know what else to do
 private:
     double _height { 0 };
     double _width { 0 };

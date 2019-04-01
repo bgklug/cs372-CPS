@@ -366,42 +366,43 @@ TEST_CASE("Skyline")
 
 TEST_CASE("Scaled Shape")
 {
-//    std::vector<std::unique_ptr<Shape>> shapes1;
-//    shapes1.push_back(std::make_unique<Circle>(20));
-//    Scaled sc1(std::make_unique<LayeredShapes>(std::move(shapes1)), 2, 2);
-//
-//    std::vector<std::unique_ptr<Shape>> shapes2;
-//    shapes2.push_back(std::make_unique<Rectangle>(40, 20));
-//    shapes2.push_back(std::make_unique<Polygon>(6, 20));
-//    shapes2.push_back(std::make_unique<Circle>(40));
-//
-//    Scaled sc2(std::make_unique<LayeredShapes>(std::move(shapes2)), 1.5, 3);
-//
-//    std::vector<std::unique_ptr<Shape>> shapes3;
-//    shapes3.push_back(std::make_unique<Polygon>(8, 10));
-//
-//    Scaled sc3(std::make_unique<LayeredShapes>(std::move(shapes3)), 4, 6);
+    std::vector<std::unique_ptr<Shape>> shapes1;
+    shapes1.push_back(std::make_unique<Circle>(20));
+    Scaled sc1(std::make_unique<LayeredShapes>(std::move(shapes1)), 2, 2);
+
+    std::vector<std::unique_ptr<Shape>> shapes2;
+    shapes2.push_back(std::make_unique<Rectangle>(40, 20));
+    shapes2.push_back(std::make_unique<Polygon>(6, 20));
+    shapes2.push_back(std::make_unique<Circle>(40));
+
+    Scaled sc2(std::make_unique<LayeredShapes>(std::move(shapes2)), 1.5, 3);
+
+    std::vector<std::unique_ptr<Shape>> shapes3;
+    shapes3.push_back(std::make_unique<Polygon>(8, 10));
+
+    Scaled sc3(std::make_unique<LayeredShapes>(std::move(shapes3)), 4, 6);
 
     SECTION("Shape Changed Height and Width")
     {
-//        REQUIRE(sc1.get_width() == 80);
-//        REQUIRE(sc1.get_height() == 80);
-//
-//        REQUIRE(sc2.get_width() == 120);
+        REQUIRE(sc1.get_width() == 80);
+        REQUIRE(sc1.get_height() == 80);
+
+        REQUIRE(sc2.get_width() == 120);
 
 //        REQUIRE(sc3.get_width() == 32);
     }
 
     SECTION("PostScript Generation")
     {
-//        REQUIRE(sc1.generate().str() == "gsave\n"
-//                                        "0 0 40.000000 0 360 arc stroke\n"
-//                                        "grestore\n"
-//        );
-//
-//        REQUIRE(sc2.generate().str() == "gsave\n"
-//                                        "0 0 40.000000 0 360 arc stroke\n"
-//                                        "grestore\n"
-//        );
+        REQUIRE(sc1.generate().str() == "gsave\n"
+                                        "0 0 40.000000 0 360 arc stroke\n"
+                                        "\n"
+                                        "grestore\n"
+        );
+
+        REQUIRE(sc2.generate().str() == "gsave\n"
+                                        "0 0 40.000000 0 360 arc stroke\n"
+                                        "grestore\n"
+        );
     }
 }

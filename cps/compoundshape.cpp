@@ -10,10 +10,6 @@ using std::stringstream;
 using std::move;
 using std::to_string;
 
-//CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
-//	: _shapes(move(shapes))
-//{}
-
 void CompoundShape::pushShape(Shape_ptr shape)
 {
 	_shapes.push_back(move(shape));
@@ -207,17 +203,22 @@ std::stringstream HorizontalShapes::generate()
 	return postScriptFragment;
 }
 
-Scaled::Scaled(std::shared_ptr<CompoundShape> shape, double scaleFactorX, double scaleFactorY)
-    : _scaleFactorX{scaleFactorX}, _scaleFactorY{scaleFactorY}
+Scaled::Scaled(const std::shared_ptr<CompoundShape>& shape, double scaleFactorX, double scaleFactorY)
+    : _scaleFactorX{scaleFactorX}, _scaleFactorY{scaleFactorY}, _originalShape{shape}
 {
-    set_width(shape->get_width());
-    set_height(shape->get_height());
+    set_width(shape->get_width()*scaleFactorX);
+    set_height(shape->get_height()*scaleFactorY);
 }
 
 std::stringstream Scaled::generate()
 {
-
-    std::unique_ptr<CompoundShape> scaledShape;
+    std::shared_ptr<CompoundShape> scaledShape = _originalShape;
+    std::vector<Shape_ptr> newShapes;
+    for (auto shape = scaledShape->begin(); shape < scaledShape->end(); shape++)
+    {
+        (*shape)->set_height((*shape)->get_height()*_scaleFactorY);
+        (*shape)->set_width((*shape)->get_width()*_scaleFactorX);
+    }
 
     std::stringstream output;
     output << "gsave" << std::endl;

@@ -77,16 +77,11 @@ private:
 class Scaled : public CompoundShape
 {
 public:
-    Scaled(std::shared_ptr<CompoundShape> shape, double scaleFactorX, double scaleFactorY);
+    Scaled(const std::shared_ptr<CompoundShape> & shape, double scaleFactorX, double scaleFactorY);
 
     std::stringstream generate() override;
 private:
-    //These two variables break the pattern,
-    //but they were the only solution I could
-    //come up with given the base class code
-    double _scaledHeight;
-    double _scaledWidth;
-
+    std::shared_ptr<CompoundShape> _originalShape;
     double _scaleFactorX;
     double _scaleFactorY;
 };
