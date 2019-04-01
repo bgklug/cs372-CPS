@@ -7,6 +7,7 @@
 #define CS372_CPS_COMPOUNDSHAPE_H
 
 #include <vector>
+#include <utility> // pair
 
 #include "shape.hpp"
 
@@ -17,14 +18,17 @@ public:
 	using iterator = std::vector<Shape_ptr>::iterator;
 	using const_iterator = std::vector<Shape_ptr>::const_iterator;
 
+	CompoundShape(std::vector<Shape_ptr> shapes);
+
+	void set_width(double) override {}
+	void set_height(double) override {}
+
 	void pushShape(Shape_ptr shape);
 	size_t get_numShapes() const;
 	iterator begin();
 	iterator end();
 	const_iterator begin() const;
 	const_iterator end() const;
-protected:
-    void setShapes(std::vector<Shape_ptr>);
 private:
 	std::vector<Shape_ptr> _shapes;
 };
@@ -64,20 +68,23 @@ private:
 
 };
 
-class Scaled : public cps::CompoundShape
+class Scaled : public Shape
 {
 public:
-    Scaled(const std::shared_ptr<CompoundShape> & shape, double scaleFactorX, double scaleFactorY);
+    Scaled(Shape_ptr shape, const std::pair<double, double> & scaleFactor);
+
+	double get_width() const override;
+	double get_height() const override;
+
+	void set_width(double) override {}
+	void set_height(double) override {}
 
     std::stringstream generate() override;
 private:
-    std::shared_ptr<CompoundShape> _originalShape;
-    double _scaleFactorX;
-    double _scaleFactorY;
+    Shape_ptr _originalShape;
+    std::pair<double, double> _scaleFactor;
 };
 
 }
-
-
 
 #endif //CS372_CPS_COMPOUNDSHAPE_H

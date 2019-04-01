@@ -10,11 +10,11 @@ using std::vector;
 using std::stringstream;
 using std::move;
 using std::to_string;
+using std::pair;
 
-void CompoundShape::setShapes(std::vector<Shape_ptr> shapes)
-{
-    _shapes = move(shapes);
-}
+CompoundShape::CompoundShape(vector<Shape_ptr> shapes)
+	: _shapes(move(shapes))
+{}
 
 void CompoundShape::pushShape(Shape_ptr shape)
 {
@@ -43,9 +43,8 @@ CompoundShape::const_iterator CompoundShape::end() const
 }
 
 LayeredShapes::LayeredShapes(vector<Shape_ptr> shapes)
-{
-    setShapes(move(shapes));
-}
+	: CompoundShape(move(shapes))
+{}
 
 double LayeredShapes::get_height() const
 {
@@ -82,9 +81,8 @@ stringstream LayeredShapes::generate()
 }
 
 HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
-{
-    setShapes(move(shapes));
-}
+	: CompoundShape(move(shapes))
+{}
 
 double HorizontalShapes::get_height() const
 {
@@ -132,9 +130,8 @@ std::stringstream HorizontalShapes::generate()
 }
 
 VerticalShapes::VerticalShapes(vector<Shape_ptr> shapes)
-{
-    setShapes(move(shapes));
-}
+	: CompoundShape(move(shapes))
+{}
 
 double VerticalShapes::get_height() const
 {
@@ -181,26 +178,30 @@ stringstream VerticalShapes::generate()
 	return postScriptFragment;
 }
 
-Scaled::Scaled(const std::shared_ptr<CompoundShape>& shape, double scaleFactorX, double scaleFactorY)
-    : _scaleFactorX{scaleFactorX}, _scaleFactorY{scaleFactorY}, _originalShape{shape}
+Scaled::Scaled(Shape_ptr shape, const std::pair<double, double> & scaleFactor)
+    : _originalShape(move(shape)), _scaleFactor(scaleFactor)
 {
-    set_width(shape->get_width()*scaleFactorX);
-    set_height(shape->get_height()*scaleFactorY);
+	_originalShape->set_width(_originalShape->get_width()*_scaleFactor.first);
+	_originalShape->set_height(_originalShape->get_height()*_scaleFactor.second);
 }
+
+double Scaled::get_width() const
+{
+	return _originalShape->get_width();
+}
+double Scaled::get_height() const
+{
+	return _originalShape->get_height();
+}
+
 
 std::stringstream Scaled::generate()
 {
-    std::shared_ptr<CompoundShape> scaledShape = _originalShape;
-    std::vector<Shape_ptr> newShapes;
-    for (auto shape = scaledShape->begin(); shape < scaledShape->end(); shape++)
-    {
-        (*shape)->set_height((*shape)->get_height()*_scaleFactorY);
-        (*shape)->set_width((*shape)->get_width()*_scaleFactorX);
-    }
+	//dynamic_cast<Shape_ptr<CompoundShape>>(_originalShape);
 
     std::stringstream output;
     output << "gsave" << std::endl;
-    output << scaledShape->generate().str();
+    output << _originalShape->generate().str();
     output << "grestore" << std::endl;
 
     return output;

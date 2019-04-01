@@ -38,14 +38,30 @@ void Shape::set_width(double width)
 
 // Circle Class
 Circle::Circle(double radius)
+    : _radius{radius}
+{}
+
+double Circle::get_height() const
 {
-    set_height(2*radius);
-    set_width(2*radius);
+    return _radius*2;
+}
+double Circle::get_width() const
+{
+    return _radius*2;
+}
+
+void Circle::set_height(double height)
+{
+    _radius = height / 2;
+}
+void Circle::set_width(double width)
+{
+    _radius = width / 2;
 }
 
 std::stringstream Circle::generate()
 {
-    return std::stringstream("0 0 " + std::to_string(get_height()/2) + " 0 360 arc stroke\n");
+    return std::stringstream("0 0 " + std::to_string(_radius) + " 0 360 arc stroke\n");
 }
 
 // Rectangle Class
