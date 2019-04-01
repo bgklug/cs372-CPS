@@ -154,7 +154,8 @@ TEST_CASE("Horizontal Shape")
         );
 		REQUIRE(horizontal3->generate().str() ==
             make_unique<Circle>(10)->generate().str() + "\n"
-            + "0 20.000000 translate\n"
+            + "10.000000 0 translate\n"
+            + "10.000000 0 translate\n"
             + make_unique<Circle>(10)->generate().str() + "\n"
         );
 	}
@@ -257,16 +258,19 @@ TEST_CASE("Rotated Shapes")
     std::unique_ptr<Shape> r1 = std::make_unique<Rectangle>(80, 40);
     std::unique_ptr<Shape> c1 = std::make_unique<Circle>(10);
 
-    std::vector<std::unique_ptr<Shape>> aFewShapes;
-    aFewShapes.push_back(std::make_unique<Circle>(10));
-    aFewShapes.push_back(std::make_unique<Rectangle>(80, 40));
+    std::vector<std::unique_ptr<Shape>> twoShapes1;
+    twoShapes1.push_back(std::make_unique<Circle>(10));
+    twoShapes1.push_back(std::make_unique<Rectangle>(80, 40));
 
-//    auto layer1 = std::make_unique<LayeredShapes>(std::move(aFewShapes));
+    std::vector<std::unique_ptr<Shape>> twoShapes2;
+    twoShapes2.push_back(std::make_unique<Circle>(10));
+    twoShapes2.push_back(std::make_unique<Rectangle>(80, 40));
 
-    auto h1 = std::make_unique<HorizontalShapes>(std::move(aFewShapes));
+    auto layer1 = std::make_unique<LayeredShapes>(std::move(twoShapes1));
+    auto h1 = std::make_unique<HorizontalShapes>(std::move(twoShapes2));
 
     Rotated rot1(std::make_unique<Rectangle>(80, 40), 90);
-//    Rotated rot2(std::move(layer1), 180);
+    Rotated rot2(std::move(layer1), 180);
     Rotated rot3(std::move(h1), 270);
 
     SECTION("Width and Height changes")
@@ -275,7 +279,7 @@ TEST_CASE("Rotated Shapes")
         REQUIRE(rot1.get_width() == r1->get_height());
 
         REQUIRE(rot3.get_height() == (r1->get_width() + c1->get_width()));
-        REQUIRE(rot3.get_height() == (r1->get_height() + c1->get_height()));
+        REQUIRE(rot3.get_width() == 40);
     }
 
     SECTION("Generate PostScript")
@@ -291,21 +295,35 @@ TEST_CASE("Rotated Shapes")
                                          "stroke\n"
                                          "grestore\n");
 
-//        REQUIRE(rot2.generate().str() == "gsave\n"
-//                                         "180 rotate\n"
-//                                         "0 0 10.000000 0 360 arc stroke\n"
-//                                         "\n"
-//                                         "newpath\n"
-//                                         "-40.000000 -20.000000 moveto\n"
-//                                         "80.000000 0 rlineto\n"
-//                                         "0 40.000000 rlineto\n"
-//                                         "-80.000000 0 rlineto\n"
-//                                         "closepath\n"
-//                                         "stroke\n"
-//                                         "\n"
-//                                         "grestore\n");
+        REQUIRE(rot2.generate().str() == "gsave\n"
+                                         "180 rotate\n"
+                                         "0 0 10.000000 0 360 arc stroke\n"
+                                         "\n"
+                                         "newpath\n"
+                                         "-40.000000 -20.000000 moveto\n"
+                                         "80.000000 0 rlineto\n"
+                                         "0 40.000000 rlineto\n"
+                                         "-80.000000 0 rlineto\n"
+                                         "closepath\n"
+                                         "stroke\n"
+                                         "\n"
+                                         "grestore\n");
 
-        REQUIRE(rot3.generate().str() == "");
+        REQUIRE(rot3.generate().str() == "gsave\n"
+                                         "270 rotate\n"
+                                         "0 0 10.000000 0 360 arc stroke\n"
+                                         "\n"
+                                         "10.000000 0 translate\n"
+                                         "40.000000 0 translate\n"
+                                         "newpath\n"
+                                         "-40.000000 -20.000000 moveto\n"
+                                         "80.000000 0 rlineto\n"
+                                         "0 40.000000 rlineto\n"
+                                         "-80.000000 0 rlineto\n"
+                                         "closepath\n"
+                                         "stroke\n"
+                                         "\n"
+                                         "grestore\n");
     }
 }
 

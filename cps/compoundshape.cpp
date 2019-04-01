@@ -142,7 +142,7 @@ HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
 
 double HorizontalShapes::get_height() const
 {
-	auto maxHeight{0};
+	auto maxHeight{0.0};
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
 		if ((*shape)->get_height() > maxHeight) {
@@ -153,10 +153,10 @@ double HorizontalShapes::get_height() const
 }
 double HorizontalShapes::get_width() const
 {
-	auto totalWidth{0};
+	auto totalWidth{0.0};
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
-		totalWidth += (*shape)->get_height();
+		totalWidth += (*shape)->get_width();
 	}
 	return totalWidth;
 }
