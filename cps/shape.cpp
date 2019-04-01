@@ -147,6 +147,7 @@ std::stringstream Skyline::generate()
     }
 
     output << _buildings.front().spacing << " 0 rlineto" << std::endl;
+    output << "0 0 moveto" << std::endl;
     output << "stroke" << std::endl;
     output << "grestore" << std::endl;
     return output;
