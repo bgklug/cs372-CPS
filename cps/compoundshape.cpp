@@ -128,9 +128,13 @@ std::stringstream HorizontalShapes::generate()
 	stringstream postScriptFragment;
 	for (auto shape = begin(); shape != end(); ++shape)
 	{
+	    if (shape != begin())
+        {
+            postScriptFragment << std::to_string((*shape)->get_width()/2) << " " << "0 translate\n";
+        }
 		postScriptFragment << (*shape)->generate().str() << "\n";
 		if (shape + 1 != end()) {
-			postScriptFragment << "0 " << std::to_string((*shape)->get_width()) << " translate\n";
+			postScriptFragment << std::to_string((*shape)->get_width()/2) << " " << "0 translate\n";
 		}
 	}
 	return postScriptFragment;

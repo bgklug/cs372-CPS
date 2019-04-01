@@ -223,21 +223,21 @@ TEST_CASE("Rotated Shapes")
     aFewShapes.push_back(std::make_unique<Circle>(10));
     aFewShapes.push_back(std::make_unique<Rectangle>(80, 40));
 
-    auto layer1 = std::make_unique<LayeredShapes>(std::move(aFewShapes));
+//    auto layer1 = std::make_unique<LayeredShapes>(std::move(aFewShapes));
 
-//    auto vert1 = std::make_unique<VerticalShapes>(std::move(aFewShapes));
+    auto h1 = std::make_unique<HorizontalShapes>(std::move(aFewShapes));
 
     Rotated rot1(std::make_unique<Rectangle>(80, 40), 90);
-    Rotated rot2(std::move(layer1), 180);
-//    Rotated rot3(std::move(vert1), 270);
+//    Rotated rot2(std::move(layer1), 180);
+    Rotated rot3(std::move(h1), 270);
 
     SECTION("Width and Height changes")
     {
         REQUIRE(rot1.get_height() == r1->get_width());
         REQUIRE(rot1.get_width() == r1->get_height());
 
-//        REQUIRE(rot3.get_height() == (r1->get_width() + c1->get_width()));
-//        REQUIRE(rot3.get_height() == (r1->get_height() + c1->get_height()));
+        REQUIRE(rot3.get_height() == (r1->get_width() + c1->get_width()));
+        REQUIRE(rot3.get_height() == (r1->get_height() + c1->get_height()));
     }
 
     SECTION("Generate PostScript")
@@ -253,21 +253,21 @@ TEST_CASE("Rotated Shapes")
                                          "stroke\n"
                                          "grestore\n");
 
-        REQUIRE(rot2.generate().str() == "gsave\n"
-                                         "180 rotate\n"
-                                         "0 0 10.000000 0 360 arc stroke\n"
-                                         "\n"
-                                         "newpath\n"
-                                         "-40.000000 -20.000000 moveto\n"
-                                         "80.000000 0 rlineto\n"
-                                         "0 40.000000 rlineto\n"
-                                         "-80.000000 0 rlineto\n"
-                                         "closepath\n"
-                                         "stroke\n"
-                                         "\n"
-                                         "grestore\n");
+//        REQUIRE(rot2.generate().str() == "gsave\n"
+//                                         "180 rotate\n"
+//                                         "0 0 10.000000 0 360 arc stroke\n"
+//                                         "\n"
+//                                         "newpath\n"
+//                                         "-40.000000 -20.000000 moveto\n"
+//                                         "80.000000 0 rlineto\n"
+//                                         "0 40.000000 rlineto\n"
+//                                         "-80.000000 0 rlineto\n"
+//                                         "closepath\n"
+//                                         "stroke\n"
+//                                         "\n"
+//                                         "grestore\n");
 
-//        REQUIRE(rot3.generate().str() == "");
+        REQUIRE(rot3.generate().str() == "");
     }
 }
 
