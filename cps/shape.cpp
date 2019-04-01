@@ -1,8 +1,10 @@
+// shape.cpp
 //
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
 
-#include "shape.h"
+#include "shape.hpp"
+
 #include <algorithm>
 #include <random>
 #include <functional>

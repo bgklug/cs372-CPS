@@ -5,4 +5,4 @@ set(CMAKE_CXX_STANDARD 17)
 
 
 include_directories("../CPS")
-add_executable(test_cps ./testing/main_test.cpp ./testing/test_shape.cpp cps/compoundshape.cpp cps/compoundshape.h cps/shape.cpp cps/shape.h)
+add_executable(test_cps ./testing/main_test.cpp ./testing/test_shape.cpp cps/compoundshape.cpp cps/compoundshape.hpp cps/shape.cpp cps/shape.hpp)
