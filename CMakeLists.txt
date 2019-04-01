@@ -11,3 +11,6 @@ endif()
 
 include_directories("../CPS")
 add_executable(test_cps ./testing/main_test.cpp ./testing/test_shape.cpp cps/compoundshape.cpp cps/compoundshape.hpp cps/shape.cpp cps/shape.hpp)
+
+add_executable(example cps/example.cpp cps/compoundshape.cpp cps/compoundshape.hpp cps/shape.cpp cps/shape.hpp)
+
