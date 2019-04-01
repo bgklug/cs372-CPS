@@ -18,9 +18,8 @@ public:
 
     virtual std::stringstream generate()=0;
 
-protected:
-    void set_height(double height);
-    void set_width(double width);
+    virtual void set_height(double height);
+    virtual void set_width(double width);
 
 private:
     double _height { 0 };
