@@ -85,6 +85,7 @@ Rectangle::Rectangle(double width, double height)
     set_width(width);
 }
 
+// Polygon Class
 Polygon::Polygon(int numSides, double sideLength)
 {
     _numSides = numSides;
@@ -107,12 +108,10 @@ Polygon::Polygon(int numSides, double sideLength)
     }
 }
 
-
 std::stringstream Polygon::generate()
 {
     std::stringstream output;
 
-    output << "%!\n" << "newpath\n";
     output << "/length " << std::to_string(_sideLength) << " def\n";
     output << "/nSides " << std::to_string(_numSides) << " def\n";
     output << "/angle { 360 nSides div } def\n";
@@ -127,7 +126,6 @@ std::stringstream Polygon::generate()
     output << "closepath\n";
     output << "stroke\n";
     output << "grestore\n";
-    output << "showpage\n";
 
     return output;
 }
