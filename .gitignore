@@ -4,7 +4,11 @@ CMakeCache.txt
 Makefile
 cmake_install.cmake
 
+build/*
+
+*.ps
+
 # ignore executables
 test_cps
 #ignore IDE files
-./.idea
+.idea
