@@ -3,6 +3,7 @@
 //
 
 #include "compoundshape.h"
+#include "shape.h"
 
 using std::vector;
 using std::stringstream;
@@ -181,3 +182,4 @@ std::stringstream HorizontalShapes::generate()
 	}
 	return postScriptFragment;
 }
+

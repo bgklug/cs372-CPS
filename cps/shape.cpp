@@ -7,6 +7,7 @@ using std::stringstream;
 using std::cos, std::sin;
 
 #include "shape.h"
+#include "compoundshape.h"
 #include <algorithm>
 #include <random>
 #include <functional>
@@ -114,28 +115,6 @@ std::stringstream Polygon::generate()
     return output;
 }
 
-Scaled::Scaled(std::unique_ptr<Shape> shape, double scaleFactorX, double scaleFactorY)
-    : _scaleFactorX{scaleFactorX}, _scaleFactorY{scaleFactorY}
-{
-    set_width(shape->get_width()*scaleFactorX);
-    set_height(shape->get_height()*scaleFactorY);
-
-    _originalShape = std::move(shape);
-}
-
-std::stringstream Scaled::generate()
-{
-    std::unique_ptr<Shape> scaledShape = std::move(_originalShape);
-    scaledShape->set_height(get_height());
-    scaledShape->set_width(get_width());
-
-    std::stringstream output;
-    output << "gsave" << std::endl;
-    output << scaledShape->generate().str();
-    output << "grestore" << std::endl;
-
-    return output;
-}
 Skyline::Skyline(int numOfBuildings)
     : _buildings{generateBuildings(numOfBuildings)}
 {
@@ -212,4 +191,27 @@ std::stringstream Spacer::generate()
         std::to_string(get_width())+" "+
         std::to_string(get_height())+" translate\n"
     );
+}
+
+Scaled::Scaled(std::unique_ptr<Shape> shape, double scaleFactorX, double scaleFactorY)
+    : _scaleFactorX{scaleFactorX}, _scaleFactorY{scaleFactorY}
+{
+    set_width(shape->get_width()*scaleFactorX);
+    set_height(shape->get_height()*scaleFactorY);
+
+    _originalShape = std::move(shape);
+}
+
+std::stringstream Scaled::generate()
+{
+    std::unique_ptr<Shape> scaledShape = std::move(_originalShape);
+    scaledShape->set_height(get_height());
+    scaledShape->set_width(get_width());
+
+    std::stringstream output;
+    output << "gsave" << std::endl;
+    output << scaledShape->generate().str();
+    output << "grestore" << std::endl;
+
+    return output;
 }

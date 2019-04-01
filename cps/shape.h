@@ -8,6 +8,7 @@
 #include <sstream>
 #include <cmath>
 #include <vector>
+#include <memory>
 
 
 class Shape
@@ -25,6 +26,7 @@ protected:
 private:
     double _height { 0 };
     double _width { 0 };
+    friend class Scaled;
 };
 
 
@@ -88,7 +90,6 @@ private:
 
     std::vector<Building> _buildings;
 };
-
 
 
 class Scaled : public Shape

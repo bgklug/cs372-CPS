@@ -355,6 +355,7 @@ TEST_CASE("Skyline")
     }
     //No further tests as results are random
 }
+
 TEST_CASE("Scaled Shape")
 {
     Scaled sc1(std::make_unique<Circle>(20), 2, 2);
