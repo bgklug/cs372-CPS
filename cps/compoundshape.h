@@ -11,6 +11,8 @@
 
 #include "shape.h"
 
+namespace cps {
+
 class CompoundShape: public Shape {
 public:
 	using Shape_ptr = std::unique_ptr<Shape>;
@@ -43,7 +45,7 @@ public:
 	double get_height() const override;
 	double get_width() const override;
 
-	std::stringstream generate();
+	std::stringstream generate() override;
 private:
 
 };
@@ -81,5 +83,7 @@ private:
    std::unique_ptr<Shape> _originalShape;
    int _rotation;
 };
+
+}
 
 #endif //CS372_CPS_COMPOUNDSHAPE_H

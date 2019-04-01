@@ -7,6 +7,8 @@
 #include <random>
 #include <functional>
 
+namespace cps {
+
 // Base Class
 double Shape::get_height() const
 {
@@ -187,4 +189,6 @@ std::stringstream Spacer::generate()
         std::to_string(get_width())+" "+
         std::to_string(get_height())+" translate\n"
     );
+}
+
 }

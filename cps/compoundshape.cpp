@@ -4,6 +4,8 @@
 
 #include "compoundshape.h"
 
+namespace cps {
+
 using std::vector;
 using std::stringstream;
 using std::move;
@@ -195,4 +197,6 @@ std::stringstream HorizontalShapes::generate()
 		postScriptFragment << to_string(-relativeCurrentPoint) << " 0 translate\n";
 	}
 	return postScriptFragment;
+}
+
 }

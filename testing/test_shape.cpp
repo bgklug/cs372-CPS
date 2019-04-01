@@ -11,6 +11,7 @@ using std::make_unique;
 #include "catch.hpp"
 #include "../cps/shape.h"
 #include "../cps/compoundshape.h"
+using namespace cps;
 
 using std::vector;
 using std::move;

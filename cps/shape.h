@@ -9,18 +9,20 @@
 #include <cmath>
 #include <vector>
 
+namespace cps {
 
 class Shape
 {
 public:
+    virtual ~Shape()=default;
+
     virtual double get_height() const;
     virtual double get_width() const;
 
+    void set_height(double height);
+    void set_width(double width);
+
     virtual std::stringstream generate()=0;
-
-    virtual void set_height(double height);
-    virtual void set_width(double width);
-
 private:
     double _height { 0 };
     double _width { 0 };
@@ -88,6 +90,6 @@ private:
     std::vector<Building> _buildings;
 };
 
-
+}
 
 #endif //CS372_CPS_SHAPE_H
