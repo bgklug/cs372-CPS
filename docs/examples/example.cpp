@@ -17,10 +17,10 @@ int main() {
 
     file << startfile;
 
-    file << Spacer(inch,inch).generate().str();
-    file << Circle(10).generate().str();
+    file << Spacer(4*inch, 1*inch).generate().str();
+    file << Skyline(10).generate().str();
 
-    file << Spacer(3*inch, 3*inch).generate().str();
+    file << Spacer(-1*inch, 3*inch).generate().str();
 
     { // 3x3 grid
         auto rectangles = vector<Shape::Shape_ptr>();
