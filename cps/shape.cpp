@@ -1,11 +1,15 @@
+// shape.cpp
 //
 // Created by Mark, Bryant and Jacob on 3/20/2019.
 //
 
-#include "shape.h"
+#include "shape.hpp"
+
 #include <algorithm>
 #include <random>
 #include <functional>
+
+namespace cps {
 
 // Base Class
 double Shape::get_height() const
@@ -29,15 +33,32 @@ void Shape::set_width(double width)
 }
 
 // Circle Class
-void Circle::setRadius(double radius)
-{
-    set_height(radius*2);
-    set_width(radius*2);
-}
-
 Circle::Circle(double radius)
 {
     setRadius(radius);
+}
+
+double Circle::get_height() const
+{
+    return _radius * 2;
+}
+double Circle::get_width() const
+{
+    return _radius * 2;
+}
+
+void Circle::set_height(double height)
+{
+    setRadius(height / 2);
+}
+void Circle::set_width(double width)
+{
+    setRadius(width / 2);
+}
+
+void Circle::setRadius(double radius)
+{
+    _radius = radius;
 }
 
 std::stringstream Circle::generate()
@@ -118,7 +139,9 @@ Skyline::Skyline(int numOfBuildings)
     for (const auto & building : _buildings)
     {
        maxWidth += building.width;
+       maxWidth += building.spacing;
     }
+    maxWidth += _buildings.front().spacing;
 
     double maxHeight = 0.0;
     if(!_buildings.empty())
@@ -147,13 +170,12 @@ std::stringstream Skyline::generate()
     }
 
     output << _buildings.front().spacing << " 0 rlineto" << std::endl;
+    output << "0 0 moveto" << std::endl;
     output << "stroke" << std::endl;
     output << "grestore" << std::endl;
     return output;
 }
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-msc50-cpp"
 std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
 {
     std::random_device rd;
@@ -173,7 +195,6 @@ std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
 
     return outputVector;
 }
-#pragma clang diagnostic pop
 
 Spacer::Spacer(double width, double height)
 {
@@ -187,4 +208,31 @@ std::stringstream Spacer::generate()
         std::to_string(get_width())+" "+
         std::to_string(get_height())+" translate\n"
     );
+}
+
+
+Rotated::Rotated(Shape_ptr shape, int degrees) : _rotation{degrees}
+{
+    if(degrees == 90 || degrees == 270)
+    {
+        set_height(shape->get_width());
+        set_width(shape->get_height());
+    }
+    else
+    {
+        set_width(shape->get_width());
+        set_height(shape->get_height());
+    }
+
+    _originalShape = std::move(shape);
+}
+
+std::stringstream Rotated::generate()
+{
+    return std::stringstream ("gsave\n"
+                              + std::to_string(_rotation) + " rotate\n"
+                              + _originalShape->generate().str()
+                              + "grestore\n");
+}
+
 }

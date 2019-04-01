@@ -7,14 +7,12 @@
 using std::string;
 using std::vector;
 using std::make_unique;
+using std::move;
 
 #include "catch.hpp"
-#include "../cps/shape.h"
-#include "../cps/compoundshape.h"
-
-using std::vector;
-using std::move;
-using std::make_unique;
+#include "../cps/shape.hpp"
+#include "../cps/compoundshape.hpp"
+using namespace cps;
 
 TEST_CASE("Circle")
 {

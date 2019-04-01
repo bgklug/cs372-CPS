@@ -5,6 +5,8 @@ Makefile
 cmake_install.cmake
 
 build/*
+.ghc
+.out
 
 *.ps
 
