@@ -79,54 +79,6 @@ stringstream LayeredShapes::generate()
 	return postScriptFragment;
 }
 
-VerticalShapes::VerticalShapes(vector<Shape_ptr> shapes)
-	: CompoundShape(move(shapes))
-{}
-
-double VerticalShapes::get_height() const
-{
-	auto totalHeight{0.0};
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-		totalHeight += (*shape)->get_width();
-	}
-	return totalHeight;
-}
-double VerticalShapes::get_width() const
-{
-	auto maxWidth{0.0};
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-		if ((*shape)->get_width() > maxWidth) {
-			maxWidth = (*shape)->get_width();
-		}
-	}
-	return maxWidth;
-}
-
-stringstream VerticalShapes::generate()
-{
-	stringstream postScriptFragment;
-	auto relativeCurrentPoint{0.0};
-	for (auto shape = begin(); shape != end(); ++shape)
-	{
-	    if (shape != begin())
-        {
-            relativeCurrentPoint += (*shape)->get_height()/2;
-			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
-        }
-		postScriptFragment << (*shape)->generate().str();
-		if (shape + 1 != end()) {
-			relativeCurrentPoint += (*shape)->get_height()/2;
-			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
-		}
-	}
-	if (get_numShapes() > 1) {
-		postScriptFragment << "0 " << to_string(-relativeCurrentPoint) << " translate\n";
-	}
-	return postScriptFragment;
-}
-
 HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
 	: CompoundShape(move(shapes))
 {}
@@ -171,6 +123,54 @@ std::stringstream HorizontalShapes::generate()
 	}
 	if (get_numShapes() > 1) {
 		postScriptFragment << to_string(-relativeCurrentPoint) << " 0 translate\n";
+	}
+	return postScriptFragment;
+}
+
+VerticalShapes::VerticalShapes(vector<Shape_ptr> shapes)
+	: CompoundShape(move(shapes))
+{}
+
+double VerticalShapes::get_height() const
+{
+	auto totalHeight{0.0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		totalHeight += (*shape)->get_width();
+	}
+	return totalHeight;
+}
+double VerticalShapes::get_width() const
+{
+	auto maxWidth{0.0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+		if ((*shape)->get_width() > maxWidth) {
+			maxWidth = (*shape)->get_width();
+		}
+	}
+	return maxWidth;
+}
+
+stringstream VerticalShapes::generate()
+{
+	stringstream postScriptFragment;
+	auto relativeCurrentPoint{0.0};
+	for (auto shape = begin(); shape != end(); ++shape)
+	{
+	    if (shape != begin())
+        {
+            relativeCurrentPoint += (*shape)->get_height()/2;
+			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
+        }
+		postScriptFragment << (*shape)->generate().str();
+		if (shape + 1 != end()) {
+			relativeCurrentPoint += (*shape)->get_height()/2;
+			postScriptFragment << 0 << " " << to_string((*shape)->get_height()/2) << " translate\n";
+		}
+	}
+	if (get_numShapes() > 1) {
+		postScriptFragment << "0 " << to_string(-relativeCurrentPoint) << " translate\n";
 	}
 	return postScriptFragment;
 }
