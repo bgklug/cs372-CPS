@@ -7,9 +7,9 @@ Shape
  |- Triangle
  |- Square
  |- Skyline
+ |- Rotated
  |- CompoundShape
-     |- ScaleShape
-     |- RotateShape
+     |- Scaled
      |- LayeredShape
      |- VerticalShape
      |- HorizontalShape

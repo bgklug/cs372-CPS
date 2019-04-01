@@ -18,7 +18,7 @@ public:
 	using const_iterator = std::vector<Shape_ptr>::const_iterator;
 
 	explicit CompoundShape(std::vector<Shape_ptr> shapes);
-
+	explicit CompoundShape(std::unique_ptr<CompoundShape>);
 	virtual ~CompoundShape()=default;
 
 	virtual double get_height() const override=0;
