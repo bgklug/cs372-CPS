@@ -10,9 +10,9 @@
 #include "compoundshape.hpp"
 
 namespace cps {
-    std::string startfile("%!PS\n");
-    std::string showpage("showpage\n");
-    double inch{72.0};
+    const std::string START_FILE("%!PS\n");
+    const std::string SHOWPAGE("showpage\n");
+    const double INCH{72.0};
 }
 
 #endif //CS372_CPS_HPP
