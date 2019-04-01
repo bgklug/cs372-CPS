@@ -139,7 +139,9 @@ Skyline::Skyline(int numOfBuildings)
     for (const auto & building : _buildings)
     {
        maxWidth += building.width;
+       maxWidth += building.spacing;
     }
+    maxWidth += _buildings.front().spacing;
 
     double maxHeight = 0.0;
     if(!_buildings.empty())
@@ -168,13 +170,12 @@ std::stringstream Skyline::generate()
     }
 
     output << _buildings.front().spacing << " 0 rlineto" << std::endl;
+    output << "0 0 moveto" << std::endl;
     output << "stroke" << std::endl;
     output << "grestore" << std::endl;
     return output;
 }
 
-#pragma clang diagnostic push
-#pragma ide diagnostic ignored "cert-msc50-cpp"
 std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
 {
     std::random_device rd;
@@ -194,7 +195,6 @@ std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
 
     return outputVector;
 }
-#pragma clang diagnostic pop
 
 Spacer::Spacer(double width, double height)
 {
