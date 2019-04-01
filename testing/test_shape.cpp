@@ -233,6 +233,7 @@ TEST_CASE("Rectangle")
                                        "0 5.000000 rlineto\n"
                                        "-1.000000 0 rlineto\n"
                                        "closepath\n"
+                                       "0 0 moveto\n"
                                        "stroke\n");
 
         REQUIRE(r3.generate().str() == "newpath\n"
@@ -241,6 +242,7 @@ TEST_CASE("Rectangle")
                                        "0 20.100000 rlineto\n"
                                        "-10.000000 0 rlineto\n"
                                        "closepath\n"
+                                       "0 0 moveto\n"
                                        "stroke\n");
 
         REQUIRE(r4.generate().str() == "newpath\n"
@@ -249,7 +251,9 @@ TEST_CASE("Rectangle")
                                        "0 400000.000000 rlineto\n"
                                        "-10000.000000 0 rlineto\n"
                                        "closepath\n"
+                                       "0 0 moveto\n"
                                        "stroke\n");
+        );
 
     }
 }
