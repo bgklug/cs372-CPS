@@ -9,8 +9,8 @@ using std::vector;
 using std::make_unique;
 
 #include "catch.hpp"
-#include "../cps/shape.h"
-#include "../cps/compoundshape.h"
+#include "../cps/shape.hpp"
+#include "../cps/compoundshape.hpp"
 using namespace cps;
 
 using std::vector;
