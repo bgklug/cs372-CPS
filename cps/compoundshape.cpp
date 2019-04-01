@@ -126,31 +126,6 @@ stringstream VerticalShapes::generate()
 	return postScriptFragment;
 }
 
-Rotated::Rotated(std::unique_ptr<Shape> shape, int degrees) : _rotation{degrees}
-{
-    if(degrees == 90 || degrees == 270)
-    {
-        set_height(shape->get_width());
-        set_width(shape->get_height());
-    }
-    else
-    {
-        set_width(shape->get_width());
-        set_height(shape->get_height());
-    }
-
-    _originalShape = std::move(shape);
-}
-
-std::stringstream Rotated::generate()
-{
-    return std::stringstream ("gsave\n"
-                              + std::to_string(_rotation) + " rotate\n"
-                              + _originalShape->generate().str()
-                              + "grestore\n");
-}
-
-
 HorizontalShapes::HorizontalShapes(std::vector<Shape_ptr> shapes)
 	: CompoundShape(move(shapes))
 {}
