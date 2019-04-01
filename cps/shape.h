@@ -48,6 +48,13 @@ public:
 private:
 };
 
+class Spacer : public Shape
+{
+public:
+    Spacer(double, double);
+    std::stringstream generate() override;
+private:
+};
 
 class Polygon : public Shape
 {
@@ -81,6 +88,7 @@ private:
 
     std::vector<Building> _buildings;
 };
+
 
 
 #endif //CS372_CPS_SHAPE_H
