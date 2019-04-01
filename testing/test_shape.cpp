@@ -160,6 +160,44 @@ TEST_CASE("Horizontal Shape")
 	}
 }
 
+TEST_CASE("Vertical Shape")
+{
+    vector<CompoundShape::Shape_ptr> v2;
+    v2.push_back(make_unique<Circle>(10));
+    vector<CompoundShape::Shape_ptr> v3;
+    v3.push_back(make_unique<Circle>(10));
+    v3.push_back(make_unique<Circle>(10));
+
+    auto vertical1 = make_unique<VerticalShapes>();
+    auto vertical2 = make_unique<VerticalShapes>(move(v2));
+    auto vertical3 = make_unique<VerticalShapes>(move(v3));
+
+	SECTION("Width")
+	{
+		REQUIRE(vertical1->get_width() == 0);
+		REQUIRE(vertical2->get_width() == 20);
+		REQUIRE(vertical3->get_width() == 20);
+	}
+	SECTION("Height")
+	{
+		REQUIRE(vertical1->get_height() == 0);
+		REQUIRE(vertical2->get_height() == 20);
+		REQUIRE(vertical3->get_height() == 40);
+	}
+	SECTION("PostScript Generation")
+	{
+		REQUIRE(vertical1->generate().str() == "");
+		REQUIRE(vertical2->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+        );
+		REQUIRE(vertical3->generate().str() ==
+            make_unique<Circle>(10)->generate().str() + "\n"
+            + "20.000000 0 translate\n"
+            + make_unique<Circle>(10)->generate().str() + "\n"
+        );
+	}
+}
+
 TEST_CASE("Rectangle")
 {
     Rectangle r1;
