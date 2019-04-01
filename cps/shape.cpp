@@ -108,12 +108,7 @@ Polygon::Polygon(int numSides, double sideLength)
     }
 }
 
-<<<<<<< HEAD
-stringstream Polygon::generate()
-=======
-
 std::stringstream Polygon::generate()
->>>>>>> dev
 {
     std::stringstream output;
 
