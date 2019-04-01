@@ -150,13 +150,14 @@ TEST_CASE("Horizontal Shape")
 	{
 		REQUIRE(horizontal1->generate().str() == "");
 		REQUIRE(horizontal2->generate().str() ==
-            make_unique<Circle>(10)->generate().str() + "\n"
+            make_unique<Circle>(10)->generate().str()
         );
 		REQUIRE(horizontal3->generate().str() ==
-            make_unique<Circle>(10)->generate().str() + "\n"
+            make_unique<Circle>(10)->generate().str()
             + "10.000000 0 translate\n"
             + "10.000000 0 translate\n"
-            + make_unique<Circle>(10)->generate().str() + "\n"
+            + make_unique<Circle>(10)->generate().str()
+            + "-20.000000 0 translate\n"
         );
 	}
 }
@@ -189,13 +190,14 @@ TEST_CASE("Vertical Shape")
 	{
 		REQUIRE(vertical1->generate().str() == "");
 		REQUIRE(vertical2->generate().str() ==
-            make_unique<Circle>(10)->generate().str() + "\n"
+            make_unique<Circle>(10)->generate().str()
         );
 		REQUIRE(vertical3->generate().str() ==
-            make_unique<Circle>(10)->generate().str() + "\n"
+            make_unique<Circle>(10)->generate().str()
             + "0 10.000000 translate\n"
             + "0 10.000000 translate\n"
-            + make_unique<Circle>(10)->generate().str() + "\n"
+            + make_unique<Circle>(10)->generate().str()
+            + "0 -20.000000 translate\n"
         );
 	}
 }
@@ -329,7 +331,6 @@ TEST_CASE("Rotated Shapes")
         REQUIRE(rot3.generate().str() == "gsave\n"
                                          "270 rotate\n"
                                          "0 0 10.000000 0 360 arc stroke\n"
-                                         "\n"
                                          "10.000000 0 translate\n"
                                          "40.000000 0 translate\n"
                                          "newpath\n"
@@ -339,7 +340,7 @@ TEST_CASE("Rotated Shapes")
                                          "-80.000000 0 rlineto\n"
                                          "closepath\n"
                                          "stroke\n"
-                                         "\n"
+                                         "-50.000000 0 translate\n"
                                          "grestore\n");
     }
 }
