@@ -427,12 +427,10 @@ TEST_CASE("Scaled Shape")
     shapes2.push_back(std::make_unique<Rectangle>(40, 20));
     shapes2.push_back(std::make_unique<Polygon>(6, 20));
     shapes2.push_back(std::make_unique<Circle>(40));
-
     Scaled sc2(std::make_unique<LayeredShapes>(std::move(shapes2)), 1.5, 3);
 
     std::vector<std::unique_ptr<Shape>> shapes3;
     shapes3.push_back(std::make_unique<Polygon>(8, 10));
-
     Scaled sc3(std::make_unique<LayeredShapes>(std::move(shapes3)), 4, 6);
 
     SECTION("Shape Changed Height and Width")
@@ -441,6 +439,7 @@ TEST_CASE("Scaled Shape")
         REQUIRE(sc1.get_height() == 80);
 
         REQUIRE(sc2.get_width() == 120);
+        REQUIRE(sc2.get_height() == 240);
 
 //        REQUIRE(sc3.get_width() == 32);
     }
