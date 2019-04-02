@@ -71,7 +71,7 @@ private:
 class Scaled : public Shape
 {
 public:
-    Scaled(Shape_ptr shape, const std::pair<double, double> & scaleFactor);
+    Scaled(Shape &shape, const std::pair<double, double> & scaleFactor);
 
 	double get_width() const override;
 	double get_height() const override;
@@ -81,7 +81,7 @@ public:
 
     std::stringstream generate() override;
 private:
-    Shape_ptr _originalShape;
+    Shape* _originalShape;
     std::pair<double, double> _scaleFactor;
 };
 

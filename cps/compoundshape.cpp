@@ -41,8 +41,7 @@ CompoundShape::const_iterator CompoundShape::end() const
 {
 	return _shapes.end();
 }
-
-LayeredShapes::LayeredShapes(vector<Shape_ptr> shapes)
+LayeredShapes::LayeredShapes(std::vector<Shape_ptr> shapes)
 	: CompoundShape(move(shapes))
 {}
 
@@ -178,12 +177,9 @@ stringstream VerticalShapes::generate()
 	return postScriptFragment;
 }
 
-Scaled::Scaled(Shape_ptr shape, const std::pair<double, double> & scaleFactor)
-    : _originalShape(move(shape)), _scaleFactor(scaleFactor)
-{
-	_originalShape->set_width(_originalShape->get_width()*_scaleFactor.first);
-	_originalShape->set_height(_originalShape->get_height()*_scaleFactor.second);
-}
+Scaled::Scaled(Shape & shape, const std::pair<double, double> & scaleFactor)
+    : _originalShape(&shape), _scaleFactor(scaleFactor)
+{}
 
 double Scaled::get_width() const
 {
@@ -197,10 +193,9 @@ double Scaled::get_height() const
 
 std::stringstream Scaled::generate()
 {
-	//dynamic_cast<Shape_ptr<CompoundShape>>(_originalShape);
-
     std::stringstream output;
     output << "gsave" << std::endl;
+	output << std::to_string(_scaleFactor.first) << " " << std::to_string(_scaleFactor.second) << " scale" << std::endl;
     output << _originalShape->generate().str();
     output << "grestore" << std::endl;
 
