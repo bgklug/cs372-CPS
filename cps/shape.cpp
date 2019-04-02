@@ -114,6 +114,7 @@ std::stringstream Polygon::generate()
     output << "/nSides " << std::to_string(_numSides) << " def\n";
     output << "/angle { 360 nSides div } def\n";
     output << "gsave\n";
+    output << std::to_string(-get_width()/2) << " " << std::to_string(-get_height()/2) << " translate\n";
     output << "newpath\n";
     output << "0 0 moveto\n";
     output << "0 angle 360 {\n";
