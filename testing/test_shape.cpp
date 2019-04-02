@@ -75,7 +75,6 @@ TEST_CASE("Polygon", "[polygon]")
             "closepath\n" \
             "stroke\n" \
             "grestore\n");
-
     }
 }
 
@@ -114,7 +113,7 @@ TEST_CASE("Square","[square]")
     SECTION("Square width")
     {
         Square s(100);
-        REQUIRE(s.get_width() == 100.0);
+        REQUIRE(s.get_width() == Approx(100).epsilon(0.01));
     }
     SECTION("Draw square")
     {
