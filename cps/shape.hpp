@@ -47,7 +47,6 @@ public:
 
     std::stringstream generate() override;
 private:
-    void setRadius(double);
 
     double _radius{ 0.0 };
 };
@@ -72,7 +71,7 @@ private:
 class Polygon : public Shape
 {
 public:
-    ~Polygon() = default;
+    ~Polygon() override = default;
     Polygon(int, double);
 
     std::stringstream generate() override;
@@ -86,15 +85,15 @@ private:
 class Square : public Polygon
 {
 public:
-    Square(double sideLength):Polygon(4, sideLength) {};
-    ~Square() = default;
+    explicit Square(double sideLength):Polygon(4, sideLength) {};
+    ~Square() override = default;
 };
 
 class Triangle : public Polygon
 {
 public:
-    Triangle(double sideLength):Polygon(3, sideLength) {};
-    ~Triangle() = default;
+    explicit Triangle(double sideLength):Polygon(3, sideLength) {};
+    ~Triangle() override = default;
 };
 
 class Skyline : public Shape
@@ -111,7 +110,7 @@ private:
         double width;
     };
 
-    std::vector<Building> generateBuildings(int);
+    static std::vector<Building> generateBuildings(int);
 
     std::vector<Building> _buildings;
 };

@@ -18,7 +18,7 @@ public:
 	using iterator = std::vector<Shape_ptr>::iterator;
 	using const_iterator = std::vector<Shape_ptr>::const_iterator;
 
-	CompoundShape(std::vector<Shape_ptr> shapes);
+	explicit CompoundShape(std::vector<Shape_ptr> shapes);
 
 	void set_width(double) override {}
 	void set_height(double) override {}
@@ -71,7 +71,7 @@ private:
 class Scaled : public Shape
 {
 public:
-    Scaled(Shape &shape, const std::pair<double, double> & scaleFactor);
+    Scaled(Shape &shape, std::pair<double, double> scaleFactor);
 
 	double get_width() const override;
 	double get_height() const override;
