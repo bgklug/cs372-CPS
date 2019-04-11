@@ -29,3 +29,5 @@ set(EXAMPLE
 add_executable(test_cps ${TEST})
 
 add_executable(example_cps ${EXAMPLE})
+
+add_executable(visual_test ${CPS} ./testing/visual_test.cpp)
