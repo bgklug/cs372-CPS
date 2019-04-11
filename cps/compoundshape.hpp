@@ -29,6 +29,10 @@ public:
 	iterator end();
 	const_iterator begin() const;
 	const_iterator end() const;
+
+	std::stringstream generate() override;
+	virtual std::stringstream pre_translate(double &, double, double)=0;
+	virtual std::stringstream post_translate(double &, double, double)=0;
 private:
 	std::vector<Shape_ptr> _shapes;
 };
@@ -40,7 +44,9 @@ public:
 	double get_height() const override;
 	double get_width() const override;
 
-	std::stringstream generate() override;
+	//std::stringstream generate() override;
+	std::stringstream pre_translate(double &, double, double) override;
+	std::stringstream post_translate(double &, double, double) override;
 private:
 };
 
@@ -51,7 +57,9 @@ public:
 	double get_height() const override;
 	double get_width() const override;
 
-	std::stringstream generate() override;
+	//std::stringstream generate() override;
+	std::stringstream pre_translate(double &, double, double) override;
+	std::stringstream post_translate(double &, double, double) override;
 private:
 
 };
@@ -63,7 +71,9 @@ public:
 	double get_height() const override;
 	double get_width() const override;
 
-	std::stringstream generate() override;
+	//std::stringstream generate() override;
+	std::stringstream pre_translate(double &, double, double) override;
+	std::stringstream post_translate(double &, double, double) override;
 private:
 
 };

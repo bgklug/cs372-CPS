@@ -24,6 +24,8 @@ int main() {
 
     file << Spacer(4*INCH, 4*INCH).generate().str();
 
+    file << Triangle(1).generate().str();
+
     { // 3x3 grid
         auto shapes = vector<Shape::Shape_ptr>();
         shapes.push_back(make_unique<Triangle>(INCH));
@@ -33,7 +35,7 @@ int main() {
         shapes.push_back(make_unique<Polygon>(7, INCH));
         shapes.push_back(make_unique<Polygon>(8, INCH));
 
-        HorizontalShapes column(move(shapes));
+        LayeredShapes column(move(shapes));
 
         file << column.generate().str();
     }
