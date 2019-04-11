@@ -4,6 +4,8 @@
 //
 #include <sstream>
 using std::stringstream;
+#include <string>
+using std::string;
 #include <cmath>
 using std::cos, std::sin;
 
@@ -59,22 +61,22 @@ void Circle::set_width(double width)
     _radius = width / 2;
 }
 
-std::stringstream Circle::generate()
+string Circle::generate()
 {
-    return std::stringstream("0 0 " + std::to_string(_radius) + " 0 360 arc stroke\n");
+    return ("0 0 " + std::to_string(_radius) + " 0 360 arc stroke\n");
 }
 
 // Rectangle Class
-std::stringstream Rectangle::generate()
+std::string Rectangle::generate()
 {
-    return std::stringstream("newpath\n"
-                             + std::to_string(-1*get_width()/2) + " " + std::to_string(-1*get_height()/2) + " moveto\n"
-                             + std::to_string(get_width()) + " 0 rlineto\n"
-                             + "0 " + std::to_string(get_height()) + " rlineto\n"
-                             + std::to_string(-1*get_width()) + " 0 rlineto\n"
-                             "closepath\n"
-                             "0 0 moveto\n"
-                             "stroke\n");
+    return ("newpath\n"
+             + std::to_string(-1*get_width()/2) + " " + std::to_string(-1*get_height()/2) + " moveto\n"
+             + std::to_string(get_width()) + " 0 rlineto\n"
+             + "0 " + std::to_string(get_height()) + " rlineto\n"
+             + std::to_string(-1*get_width()) + " 0 rlineto\n"
+             "closepath\n"
+             "0 0 moveto\n"
+             "stroke\n");
 }
 
 Rectangle::Rectangle(double width, double height)
@@ -106,7 +108,7 @@ Polygon::Polygon(int numSides, double sideLength)
     }
 }
 
-std::stringstream Polygon::generate()
+std::string Polygon::generate()
 {
     std::stringstream output;
 
@@ -126,7 +128,7 @@ std::stringstream Polygon::generate()
     output << "stroke\n";
     output << "grestore\n";
 
-    return output;
+    return output.str();
 }
 
 Skyline::Skyline(int numOfBuildings)
@@ -153,7 +155,7 @@ Skyline::Skyline(int numOfBuildings)
     set_height(maxHeight);
 }
 
-std::stringstream Skyline::generate()
+std::string Skyline::generate()
 {
     std::stringstream output;
     output << "gsave" << std::endl;
@@ -170,7 +172,7 @@ std::stringstream Skyline::generate()
     output << "0 0 moveto" << std::endl;
     output << "stroke" << std::endl;
     output << "grestore" << std::endl;
-    return output;
+    return output.str();
 }
 
 std::vector<Skyline::Building> Skyline::generateBuildings(int numOfBuildings)
@@ -199,9 +201,9 @@ Spacer::Spacer(double width, double height)
     set_height(height);
 }
 
-std::stringstream Spacer::generate()
+std::string Spacer::generate()
 {
-    return std::stringstream(
+    return string(
         std::to_string(get_width())+" "+
         std::to_string(get_height())+" translate\n"
     );
@@ -224,11 +226,11 @@ Rotated::Rotated(Shape_ptr shape, int degrees) : _rotation{degrees}
     _originalShape = std::move(shape);
 }
 
-std::stringstream Rotated::generate()
+std::string Rotated::generate()
 {
-    return std::stringstream ("gsave\n"
+    return string ("gsave\n"
                               + std::to_string(_rotation) + " rotate\n"
-                              + _originalShape->generate().str()
+                              + _originalShape->generate()
                               + "grestore\n");
 }
 

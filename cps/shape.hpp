@@ -7,6 +7,8 @@
 #define CS372_CPS_SHAPE_H
 
 #include <sstream>
+
+#include <string>
 #include <cmath>
 #include <vector>
 #include <memory>
@@ -26,7 +28,7 @@ public:
     virtual void set_height(double height);
     virtual void set_width(double width);
 
-    virtual std::stringstream generate()=0;
+    virtual std::string generate()=0;
 private:
     double _height { 0 };
     double _width { 0 };
@@ -45,7 +47,7 @@ public:
    void set_height(double height) override;
    void set_width(double width) override;
 
-    std::stringstream generate() override;
+    std::string generate() override;
 private:
 
     double _radius{ 0.0 };
@@ -56,7 +58,7 @@ class Rectangle : public Shape
 public:
     Rectangle() = default;
     Rectangle(double, double);
-    std::stringstream generate() override;
+    std::string generate() override;
 private:
 };
 
@@ -64,7 +66,7 @@ class Spacer : public Shape
 {
 public:
     Spacer(double, double);
-    std::stringstream generate() override;
+    std::string generate() override;
 private:
 };
 
@@ -74,7 +76,7 @@ public:
     ~Polygon() override = default;
     Polygon(int, double);
 
-    std::stringstream generate() override;
+    std::string generate() override;
 
 private:
     const double pi =  std::acos(-1);
@@ -101,7 +103,7 @@ class Skyline : public Shape
 public:
     explicit Skyline(int);
 
-    std::stringstream generate() override;
+    std::string generate() override;
 private:
     struct Building
     {
@@ -119,7 +121,7 @@ class Rotated : public Shape
 {
 public:
     Rotated(Shape_ptr, int);
-    std::stringstream generate() override;
+    std::string generate() override;
 private:
    Shape_ptr _originalShape;
    int _rotation;

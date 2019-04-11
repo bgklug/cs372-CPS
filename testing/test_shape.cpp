@@ -43,9 +43,9 @@ TEST_CASE("Circle")
         string testCircle1 = "0 0 1.000000 0 360 arc stroke\n";
         string testCircle2 = "0 0 10000.000000 0 360 arc stroke\n";
         string testCircle3 = "0 0 10.900000 0 360 arc stroke\n";
-        REQUIRE(c2.generate().str() == testCircle1);
-        REQUIRE(c3.generate().str() == testCircle2);
-        REQUIRE(c4.generate().str() == testCircle3);
+        REQUIRE(c2.generate() == testCircle1);
+        REQUIRE(c3.generate() == testCircle2);
+        REQUIRE(c4.generate() == testCircle3);
     }
 }
 
@@ -60,7 +60,7 @@ TEST_CASE("Polygon", "[polygon]")
     {
         Polygon t(3, 100);
 
-        REQUIRE(t.generate().str() == "/length 100.000000 def\n" \
+        REQUIRE(t.generate() == "/length 100.000000 def\n" \
             "/nSides 3.000000 def\n" \
             "/angle { 360 nSides div } def\n" \
             "gsave\n" \
@@ -89,7 +89,7 @@ TEST_CASE("Triangle","[triangle]")
     {
         Triangle t(100);
 
-        REQUIRE( t.generate().str() == "/length 100.000000 def\n" \
+        REQUIRE( t.generate() == "/length 100.000000 def\n" \
             "/nSides 3.000000 def\n" \
             "/angle { 360 nSides div } def\n" \
             "gsave\n" \
@@ -119,7 +119,7 @@ TEST_CASE("Square","[square]")
     {
         Square s(100);
 
-        REQUIRE( s.generate().str() == "/length 100.000000 def\n" \
+        REQUIRE( s.generate() == "/length 100.000000 def\n" \
             "/nSides 4.000000 def\n" \
             "/angle { 360 nSides div } def\n" \
             "gsave\n" \
@@ -166,13 +166,13 @@ TEST_CASE("Layered Shape")
 
     SECTION("PostScript Generation")
     {
-		REQUIRE(layered1->generate().str() == "");
-		REQUIRE(layered2->generate().str() ==
-            make_unique<Circle>(10)->generate().str() + "\n"
+		REQUIRE(layered1->generate() == "");
+		REQUIRE(layered2->generate() ==
+            make_unique<Circle>(10)->generate() + "\n"
         );
-		REQUIRE(layered3->generate().str() ==
-            make_unique<Circle>(10)->generate().str() + "\n"
-            + make_unique<Rectangle>(10, 25)->generate().str() + "\n"
+		REQUIRE(layered3->generate() ==
+            make_unique<Circle>(10)->generate() + "\n"
+            + make_unique<Rectangle>(10, 25)->generate() + "\n"
         );
     }
 }
@@ -203,15 +203,15 @@ TEST_CASE("Horizontal Shape")
 	}
 	SECTION("PostScript Generation")
 	{
-		REQUIRE(horizontal1->generate().str() == "");
-		REQUIRE(horizontal2->generate().str() ==
-            make_unique<Circle>(10)->generate().str()
+		REQUIRE(horizontal1->generate() == "");
+		REQUIRE(horizontal2->generate() ==
+            make_unique<Circle>(10)->generate()
         );
-		REQUIRE(horizontal3->generate().str() ==
-            make_unique<Circle>(10)->generate().str()
+		REQUIRE(horizontal3->generate() ==
+            make_unique<Circle>(10)->generate()
             + "10.000000 0 translate\n"
             + "10.000000 0 translate\n"
-            + make_unique<Circle>(10)->generate().str()
+            + make_unique<Circle>(10)->generate()
             + "-20.000000 0 translate\n"
         );
 	}
@@ -243,15 +243,15 @@ TEST_CASE("Vertical Shape")
 	}
 	SECTION("PostScript Generation")
 	{
-		REQUIRE(vertical1->generate().str() == "");
-		REQUIRE(vertical2->generate().str() ==
-            make_unique<Circle>(10)->generate().str()
+		REQUIRE(vertical1->generate() == "");
+		REQUIRE(vertical2->generate() ==
+            make_unique<Circle>(10)->generate()
         );
-		REQUIRE(vertical3->generate().str() ==
-            make_unique<Circle>(10)->generate().str()
+		REQUIRE(vertical3->generate() ==
+            make_unique<Circle>(10)->generate()
             + "0 10.000000 translate\n"
             + "0 10.000000 translate\n"
-            + make_unique<Circle>(10)->generate().str()
+            + make_unique<Circle>(10)->generate()
             + "0 -20.000000 translate\n"
         );
 	}
@@ -284,7 +284,7 @@ TEST_CASE("Rectangle")
 
     SECTION("PostScript Generation")
     {
-        REQUIRE(r2.generate().str() == "newpath\n"
+        REQUIRE(r2.generate() == "newpath\n"
                                        "-0.500000 -2.500000 moveto\n"
                                        "1.000000 0 rlineto\n"
                                        "0 5.000000 rlineto\n"
@@ -293,7 +293,7 @@ TEST_CASE("Rectangle")
                                        "0 0 moveto\n"
                                        "stroke\n");
 
-        REQUIRE(r3.generate().str() == "newpath\n"
+        REQUIRE(r3.generate() == "newpath\n"
                                        "-5.000000 -10.050000 moveto\n"
                                        "10.000000 0 rlineto\n"
                                        "0 20.100000 rlineto\n"
@@ -302,7 +302,7 @@ TEST_CASE("Rectangle")
                                        "0 0 moveto\n"
                                        "stroke\n");
 
-        REQUIRE(r4.generate().str() == "newpath\n"
+        REQUIRE(r4.generate() == "newpath\n"
                                        "-5000.000000 -200000.000000 moveto\n"
                                        "10000.000000 0 rlineto\n"
                                        "0 400000.000000 rlineto\n"
@@ -327,7 +327,7 @@ TEST_CASE("Spacer")
 
     SECTION("PostScript Generation")
     {
-        REQUIRE(s1.generate().str() == "40.000000 20.000000 translate\n");
+        REQUIRE(s1.generate() == "40.000000 20.000000 translate\n");
     }
 }
 
@@ -362,7 +362,7 @@ TEST_CASE("Rotated Shapes")
 
     SECTION("Generate PostScript")
     {
-        REQUIRE(rot1.generate().str() == "gsave\n"
+        REQUIRE(rot1.generate() == "gsave\n"
                                          "90 rotate\n"
                                          "newpath\n"
                                          "-40.000000 -20.000000 moveto\n"
@@ -374,7 +374,7 @@ TEST_CASE("Rotated Shapes")
                                          "stroke\n"
                                          "grestore\n");
 
-        REQUIRE(rot2.generate().str() == "gsave\n"
+        REQUIRE(rot2.generate() == "gsave\n"
                                          "180 rotate\n"
                                          "0 0 10.000000 0 360 arc stroke\n"
                                          "\n"
@@ -389,7 +389,7 @@ TEST_CASE("Rotated Shapes")
                                          "\n"
                                          "grestore\n");
 
-        REQUIRE(rot3.generate().str() == "gsave\n"
+        REQUIRE(rot3.generate() == "gsave\n"
                                          "270 rotate\n"
                                          "0 0 10.000000 0 360 arc stroke\n"
                                          "10.000000 0 translate\n"
@@ -449,13 +449,13 @@ TEST_CASE("Scaled Shape")
 
     SECTION("PostScript Generation")
     {
-        REQUIRE(sc1.generate().str() == "gsave\n"
+        REQUIRE(sc1.generate() == "gsave\n"
                                         "0 0 40.000000 0 360 arc stroke\n"
                                         "\n"
                                         "grestore\n"
         );
 
-//        REQUIRE(sc2.generate().str() == ""
+//        REQUIRE(sc2.generate() == ""
 //        );
     }
 }

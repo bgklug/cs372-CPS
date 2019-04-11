@@ -22,9 +22,9 @@ int main() {
 
     file << START_FILE;
 
-    file << Spacer(4*INCH, 4*INCH).generate().str();
+    file << Spacer(4*INCH, 4*INCH).generate();
 
-    file << Triangle(1).generate().str();
+    file << Triangle(1).generate();
 
     { // 3x3 grid
         auto shapes = vector<Shape::Shape_ptr>();
@@ -37,7 +37,7 @@ int main() {
 
         LayeredShapes column(move(shapes));
 
-        file << column.generate().str();
+        file << column.generate();
     }
 
 
