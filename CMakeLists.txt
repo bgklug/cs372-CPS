@@ -31,3 +31,5 @@ add_executable(test_cps ${TEST})
 add_executable(example_cps ${EXAMPLE})
 
 add_executable(visual_test ${CPS} ./testing/visual_test.cpp)
+
+add_executable(hw5 ${CPS} ./testing/hw5.cpp)
